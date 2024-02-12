@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'OnlineShop.wsgi.application'
+# seting the authentication of user with Account module in accounts app / instead using the default user model
+AUTH_USER_MODEL = 'accounts.Account'
 
 
 # Database
