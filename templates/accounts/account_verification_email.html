@@ -4,8 +4,9 @@
 
 لطفا روی لیتک زیر کلیک کنید تا حسابتان تایید شود .
 
-<link>http://{{domain}}{% url "account:activate_page" uidb64=uid token=token %}</link>
-
+<a href="https://{{ domain }}{% url 'account:activate_page' uidb64=uid token=token %}">فعال‌سازی حساب کاربری</a>
+</br>
+</br>
 اگر فکر میکنید این شما نیستید , لطفا این ایمیل را نادیده بگیرید .
 
 {% endautoescape %}

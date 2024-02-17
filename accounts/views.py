@@ -111,12 +111,12 @@ def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
         # check the email for existing in db (exact email or not)
-        if Account.objects.get(email=email).exist():
-            user = Account.objects.get(email__exact=email)
+        if Account.objects.filter(email=email).exists():
+            user = Account.objects.get(email=email)
 
             # reset password email
             curent_site = get_current_site(request)
-            mail_subject = 'لطفا اکانتتان را فعال کنید .'
+            mail_subject = 'لطفا اکانتتان را تایید کنید برای تغییر رمز عبورتان .'
             message = render_to_string('accounts/reset_password_email.html' , {
                 'user' : user ,
                 'domain' : curent_site ,
