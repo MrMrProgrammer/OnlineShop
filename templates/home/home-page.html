@@ -1,9 +1,11 @@
 {% extends 'base/index.html' %}
 {% load static %}
 
-{% block main %}
-    <main class="main default space-top-10">
+    {% block page-title %}مَسای شاپ{% endblock %}
 
+{% block main %}
+
+    <main class="main default space-top-10">
         <div class="container-fluid">
             <div class="slider_main owl-carousel owl-theme">
 
@@ -1237,7 +1239,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
 
                 <div class="col-12">
@@ -1282,4 +1283,5 @@
             </div>
         </div>
     </main>
+
 {% endblock %}
