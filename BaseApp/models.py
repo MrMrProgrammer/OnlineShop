@@ -30,7 +30,8 @@ class Brand(Base):
 
 class Category(Base):
     parent = models.ForeignKey(
-        'self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+        'self', default=None, null=True, blank=True,
+        verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("دسته بندی")
