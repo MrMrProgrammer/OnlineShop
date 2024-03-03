@@ -30,7 +30,8 @@ class Brand(Base):
 
 class Category(Base):
     parent = models.ForeignKey(
-        'self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+        'self', default=None, null=True, blank=True,
+        verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("دسته بندی")
@@ -87,10 +88,10 @@ class Product(Base):
 
 
 special_features = (
-    ('screen', 'screen'),
-    ('camera', 'camera'),
-    ('battery', 'battery'),
-    ('adapter', 'adapter'),
+    ('screen', _('صفحه نمایش')),
+    ('camera', _('دوربین')),
+    ('battery', _('باتری')),
+    ('adapter', _('اداپتور')),
 )
 
 
