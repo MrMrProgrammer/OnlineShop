@@ -87,10 +87,10 @@ class Product(Base):
 
 
 special_features = (
-    ('screen', 'screen'),
-    ('camera', 'camera'),
-    ('battery', 'battery'),
-    ('adapter', 'adapter'),
+    ('screen', _('صفحه نمایش')),
+    ('camera', _('دوربین')),
+    ('battery', _('باتری')),
+    ('adapter', _('اداپتور')),
 )
 
 
