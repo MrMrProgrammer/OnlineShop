@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-# Create your models here.
 
 
 class Base(models.Model):
     title = models.CharField(_("عنوان"), max_length=50, blank=True)
     slug = models.SlugField(_("ادرس"), unique=True, max_length=100, blank=True)
-    image = models.ImageField(_("عکس"), upload_to=None,
+    image = models.ImageField(_("عکس"),
+                              upload_to='images/',
                               height_field=None,
                               width_field=None, max_length=None)
 
@@ -31,6 +31,7 @@ class Brand(Base):
 class Category(Base):
     parent = models.ForeignKey(
         'self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+    sub_category = models.BooleanField(_("زیرمجموعه"), default=False)
 
     class Meta:
         verbose_name = _("دسته بندی")
@@ -52,9 +53,6 @@ class Image(models.Model):
 
 
 class Product(Base):
-    price = models.DecimalField(
-        _("قیمت محصول"), max_digits=11, decimal_places=2)
-
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
                                  related_name='products',
@@ -63,13 +61,12 @@ class Product(Base):
                               on_delete=models.CASCADE,
                               related_name='products',
                               verbose_name=_("برند"))
+    price = models.DecimalField(_("قیمت محصول"), max_digits=11, decimal_places=2)
     images = models.ManyToManyField(Image, verbose_name=_("عکس‌ها"))
-
     stock = models.IntegerField(_("موجودی محصول"))
-    discount = models.DecimalField(
-        _("تخفیف محصول"), max_digits=5, decimal_places=2, default=0)
-
-    is_available = models.BooleanField(_("موجوده؟"), default=False)
+    discount = models.DecimalField(_("تخفیف محصول"), max_digits=5, decimal_places=2, default=0)
+    public = models.BooleanField(_("نمایش عمومی"), default=False)
+    created = models.DateTimeField(auto_now_add=True)
 
     @property
     def discount_price(self):
