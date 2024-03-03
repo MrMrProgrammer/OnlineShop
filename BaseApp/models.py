@@ -29,9 +29,10 @@ class Brand(Base):
 
 
 class Category(Base):
-    parent = models.ForeignKey(
-        'self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+    
     sub_category = models.BooleanField(_("زیرمجموعه"), default=False)
+
 
     class Meta:
         verbose_name = _("دسته بندی")
