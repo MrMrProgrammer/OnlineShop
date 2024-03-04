@@ -13,7 +13,7 @@ class AccountAdmin(UserAdmin):
     list_filter = ()
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name' , 'phone_number')}),
+        ('Personal info', {'fields': ('first_name', 'last_name')}),
         ('Permissions', {'fields': ('is_active', 'is_admin')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -23,4 +23,5 @@ class AccountAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2', 'first_name', 'last_name', 'is_active', 'is_admin')}
         ),
     )
+
 admin.site.register(Account, AccountAdmin)

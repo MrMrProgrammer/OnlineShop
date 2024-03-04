@@ -1,0 +1,163 @@
+﻿﻿{% extends "base/index.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block main %}
+<body class="index-page sidebar-collapse">
+    <style>
+        .h-100 {
+            height: 7.8%!important;
+        }
+        header.Masai-header .search-area form.search input {
+            height: 71%!important;
+        }
+        .nav_header {
+            padding-top: 3px;
+        }
+        .login_content .card-header .card-title span {
+            padding-top: 2.8%;
+        }
+        .font-20 {
+            padding-top: 7.5px;
+        }
+    </style>
+    <main class="wrapper default ">
+        <div class="container">
+            <div class="row">
+                <div class="main-content login_content  col-12 col-md-7 col-lg-5 mx-auto ">
+                    <header class="card-header">
+
+                        
+                    <h3 class="card-title"><span>ایجاد به حساب کاربری</span></h3>
+                    </header>
+
+                    {% include "alerts/alerts.html" %}
+
+
+                    <div class="login_box">
+
+                        <form class="" method = "POST" action="{% url 'account:register_page' %}" >
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> نام</div>
+                                    <div class="form-account-row">
+                                        {% comment %}   |add_class:"input_second input_all" {% endcomment %}
+                                        {{ form.first_name|attr:"placeholder:نام شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> نام خوانوادگی</div>
+                                    <div class="form-account-row">
+                                        {% comment %}   |add_class:"input_second input_all" {% endcomment %}
+                                        {{ form.last_name|attr:"placeholder:نام خوانوادگی شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> نام کاربری</div>
+                                    <div class="form-account-row">
+                                        {% comment %}   |add_class:"input_second input_all" {% endcomment %}
+                                        {{ form.username|attr:"placeholder:نام کاربری شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> ایمیل </div>
+                                    <div class="form-account-row">
+                                        {% comment %}   |add_class:"input_second input_all" {% endcomment %}
+                                        {{ form.email|attr:"placeholder:ایمیل شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> شماره تماس</div>
+                                    <div class="form-account-row ">
+                                        {{ form.phone_number|attr:"placeholder:شماره تماس شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> کلمه عبور</div>
+                                    <div class="form-account-row">
+                                        {{ form.password|attr:"placeholder:کلمه عبور شما"}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-account-title"><span>*</span> تکرار کلمه عبور</div>
+                                    <div class="form-account-row">
+                                        {{ form.confirm_password|attr:"placeholder:تکرار کلمه عبور شما"}}
+                                    </div>
+                                </div>
+
+                                {% comment %} ERRORS {% endcomment %}
+                                {% if form.non_field_errors %}
+                                <div class="input_second input_all alert alert-danger" role="alert">
+                                    {{ form.non_field_errors }}
+                                    {{ form.email.errors }}
+                                    {{ form.username.errors }}
+                                    {{ form.phone_number.errors }}
+
+                                </div>
+                                {% endif %}
+                                <style>
+                                    .alert {
+                                    padding: 10px;
+                                    background-color: #f44336; /* Red */
+                                    color: white;
+                                    margin-bottom: 15px;
+                                    }
+                                    li {
+                                        text-align: center;
+                                    }
+                                    .alert-danger {
+                                    background-color: #e57373; /* Lighter red */
+                                    }
+                                </style>
+
+
+                                <div class="col-12">
+                                    <div class="form-account-agree">
+                                        <label class="checkbox-form checkbox-primary">
+                                            <input type="checkbox" id="agree">
+                                            <span class="checkbox-check"></span>
+                                        </label>
+                                        <label for="agree">
+                                            تمامی <a href="#">شرایط و قوانین</a> استفاده از سرویس‌های سایت مَسای را به دقت مطالعه کرده و با آنها موافقت کامل دارم 
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 text--center">
+                                    <button type='submit' class="btn big_btn btn-main-masai" id="signupButton">عضویت</button>
+                                </div>
+                                
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    var checkbox = document.getElementById('agree');
+                                    var signupButton = document.getElementById('signupButton');
+                                
+                                    signupButton.addEventListener('click', function (event) {
+                                        if (!checkbox.checked) {
+                                            event.preventDefault(); // جلوگیری از ارسال فرم
+                                            alert('لطفا با شرایط و قوانین سایت موافقت کنید.'); // نمایش پیغام خطا
+                                        }
+                                    });
+                                });
+                                </script>
+                                <div class="col-12 footer_login_reg text--center">
+                                    <p>
+                                        <span>قبلا ثبت نام کرده اید؟</span>
+                                        <a href="{% url "account:login_page" %}">ورود</a>
+                                    </p>
+                                </div>
+                                <div class="col-12 ">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+{% endblock %}

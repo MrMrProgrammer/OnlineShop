@@ -1,0 +1,101 @@
+﻿{% extends "base/index.html" %}
+{% load static %}
+
+
+{% block main %}
+<body class="index-page sidebar-collapse">
+
+<style>
+    .h-100 {
+        height: 7.8%!important;
+    }
+    header.Masai-header .search-area form.search input {
+        height: 71%!important;
+    }
+    .nav_header {
+        padding-top: 3px;
+    }
+    .login_content .card-header .card-title span {
+        padding-top: 2.8%;
+    }
+    .font-20 {
+        padding-top: 7.5px;
+    }
+</style>
+
+{% if request.GET.command == 'verification' %}
+
+<main class="wrapper default">
+    <div class="container">
+        <div class="row">
+            <div class="main-content alert alert-info text-center  col-12 col-md-7 col-lg-5 mx-auto" role='alert' style='max-width :1024px; margin-top:100px;'>
+            ارسال شد لطفا انرا تایید کنید . [{{request.GET.email}}] ایمیلی به ادرس ایمیلتان 
+
+            </br></br>
+            اگر حسابتان را تایید کردید میتوانید وارد شوید : {% url "{{account:login_page}}" %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% else %}
+    <main class="wrapper default">
+        <div class="container">
+            <div class="row">
+                <div class="main-content login_content  col-12 col-md-7 col-lg-5 mx-auto">
+                    <header class="card-header">
+                        <h3 class="card-title"><span>ورود به حساب کاربری</span></h3>
+                    </header>
+
+                    {% include "alerts/alerts.html" %}
+
+                    <div class="login_box">
+                            <form class="" action='{% url "account:login_page" %}' method='POST'>
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-account-title"><span>*</span> نام کاربری</div>
+                                        <div class="form-account-row">
+                                            <input class="input_second input_all" type="text" placeholder=" ایمیل کاربری شما" name='email'>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-account-title"><span>*</span> کلمه عبور</div>
+                                        <div class="form-account-row">
+                                            <input class="input_second input_all" type="password" placeholder=" کلمه عبور شما" name='password'>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-account-agree">
+                                            <label class="checkbox-form checkbox-primary">
+                                                <input type="checkbox" id="agree">
+                                                <span class="checkbox-check"></span>
+                                            </label>
+                                            <label for="agree"> مرا به خاطر بسپار</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="faramooshi" href="{% url "account:forgot_password_page" %}">رمز عبور را فراموش کرده اید؟</a>
+                                    </div>
+                                    <div class="col-12 text--center">
+                                        <button type='submit' class="btn big_btn btn-main-masai">ورود  </button>
+                                    </div>
+                                    <div class="col-12 footer_login_reg text--center">
+                                        <p>
+                                            <span>کاربر جدید هستید؟</span>
+                                            <a href="{% url "account:register_page" %}" >ثبت نام</a>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ">
+
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endif %}
+</body>
+{% endblock %}

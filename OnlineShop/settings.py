@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +43,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'BaseApp',
+
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +62,7 @@ ROOT_URLCONF = 'OnlineShop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +70,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'BaseApp.custom_context_processors.category_query'
             ],
         },
     },
@@ -128,8 +131,17 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-# MEDIA_URL = '/media/'
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
+
+# SMTP CONFIGURATION
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'aaas ypux cauw lbho'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

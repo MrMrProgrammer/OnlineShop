@@ -29,10 +29,10 @@ class Brand(Base):
 
 
 class Category(Base):
-    parent = models.ForeignKey('self', default=None, null=True, blank=True, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
-    
-    sub_category = models.BooleanField(_("زیرمجموعه"), default=False)
+    parent = models.ForeignKey('self', default=None, null=True, blank=True, verbose_name=_(
+        "دسته بندی"), on_delete=models.CASCADE)
 
+    sub_category = models.BooleanField(_("زیرمجموعه"), default=False)
 
     class Meta:
         verbose_name = _("دسته بندی")
@@ -62,10 +62,11 @@ class Product(Base):
                               on_delete=models.CASCADE,
                               related_name='products',
                               verbose_name=_("برند"))
-    price = models.DecimalField(_("قیمت محصول"), max_digits=11, decimal_places=2)
+    price = models.IntegerField(_("قیمت محصول"))
     images = models.ManyToManyField(Image, verbose_name=_("عکس‌ها"))
     stock = models.IntegerField(_("موجودی محصول"))
-    discount = models.DecimalField(_("تخفیف محصول"), max_digits=5, decimal_places=2, default=0)
+    discount = models.DecimalField(
+        _("تخفیف محصول"), max_digits=5, decimal_places=2, default=0)
     public = models.BooleanField(_("نمایش عمومی"), default=False)
     created = models.DateTimeField(auto_now_add=True)
 
