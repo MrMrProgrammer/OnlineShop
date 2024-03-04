@@ -33,9 +33,16 @@
 
 <body class="index-page sidebar-collapse">
 
+{#    <div class="top-section fullscreen-container">#}
+{#        <img src="{% static 'img/banner_img/bg_top.jpg' %}" class="h-100">#}
+{#    </div>#}
+
+        {% comment %} mobile-header {% endcomment %}
+        {% include "header/mobile_header.html" %}
+
     <div class="wrapper default">
 
-        {% comment %} header {% endcomment %}
+        {% comment %} pc-header {% endcomment %}
         {% include "header/header.html" %}
 
         {% block main %}{% endblock %}
