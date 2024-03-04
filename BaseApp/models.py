@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from autoslug import AutoSlugField
 
 
 class Base(models.Model):
     title = models.CharField(_("عنوان"), max_length=50, blank=True)
-    slug = models.SlugField(_("ادرس"), unique=True, max_length=100, blank=True)
+    slug = AutoSlugField(_("ادرس"), unique=True, max_length=100, populate_from='title')
     image = models.ImageField(_("عکس"),
                               upload_to='images/',
                               height_field=None,
@@ -56,17 +57,17 @@ class Image(models.Model):
 class Product(Base):
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
-                                 related_name='products',
+                                 related_name='product_category',
                                  verbose_name=_("دسته بندی"))
     brand = models.ForeignKey(Brand,
                               on_delete=models.CASCADE,
-                              related_name='products',
+                              related_name='product_brand',
                               verbose_name=_("برند"))
     price = models.IntegerField(_("قیمت محصول"))
     images = models.ManyToManyField(Image, verbose_name=_("عکس‌ها"))
     stock = models.IntegerField(_("موجودی محصول"))
-    discount = models.DecimalField(
-        _("تخفیف محصول"), max_digits=5, decimal_places=2, default=0)
+    discount = models.IntegerField(
+        _("تخفیف محصول"), default=0)
     public = models.BooleanField(_("نمایش عمومی"), default=False)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -90,6 +91,7 @@ special_features = (
     ('camera', _('دوربین')),
     ('battery', _('باتری')),
     ('adapter', _('اداپتور')),
+    ('color', _('رنگ')),
 )
 
 
@@ -106,7 +108,7 @@ class types_features(models.Model):
         verbose_name_plural = _("ویژگی های منحصر بفرد محصول")
 
     def __str__(self):
-        return self.name
+        return self.feature_value
 
     def get_absolute_url(self):
         pass

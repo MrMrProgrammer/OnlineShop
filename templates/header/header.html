@@ -118,11 +118,11 @@
 
 
 
-                    {% for item in categories %}
+                    {% for category in categories %}
                                 <li class="child_mno-drobdown">
 
 
-                                    <a href="{% url 'home:filter' item.slug %}" class="run">{{ item.title }}</a>
+                                    <a href="{% url 'home:filter' category.title %}" class="run">{{ category.title }}</a>
 
 
                                     <div class="mega_meno">
