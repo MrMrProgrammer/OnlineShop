@@ -6,7 +6,8 @@ from autoslug import AutoSlugField
 
 class Base(models.Model):
     title = models.CharField(_("عنوان"), max_length=50, blank=True)
-    slug = AutoSlugField(_("ادرس"), unique=True, max_length=100, populate_from='title')
+    slug = AutoSlugField(_("ادرس"), unique=True,
+                         max_length=100, populate_from='title')
     image = models.ImageField(_("عکس"),
                               upload_to='images/',
                               height_field=None,
