@@ -286,7 +286,13 @@
                             <div class="tab-content default text-center">
                                 <div class="tab-pane active" id="suggestion" role="tabpanel" aria-expanded="true">
                                         <div class="row listing-items">
-                                            {% for product in products %}
+<!--         -->
+<!--         -->
+<!--         -->
+<!--         -->
+
+                                            {% for product in products_category %}
+
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
                                                 <div class="product-box">
                                                     <div class="product-seller-details product-seller-details-item-grid">
@@ -309,7 +315,7 @@
                                                     <div class="product-box-content">
                                                         <div class="product-box-content-row">
                                                             <div class="product_title">
-                                                                <a href="#">
+                                                                <a href="{% url 'home:detail' product.slug %}">
                                                                     {{ product.title }}
                                                                 </a>
                                                             </div>

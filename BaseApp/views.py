@@ -1,33 +1,29 @@
-from django.shortcuts import render
-from .models import Product, Category
+from .models import Product
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
 
 
 class ProductListView(TemplateView):
     template_name = 'home/home-page.html'
 
 
-class ProductFilterView(ListView):
+class ProductCategoryView(ListView):
     model = Product
     template_name = 'home/category-search.html'
-    queryset = Product.objects.filter(public=True)
     context_object_name = 'products'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.category = kwargs['category']
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.queryset = Product.objects.filter(public=True).filter(category__title__exact=self.category)
+        context['products_category'] = self.queryset
+        return context
 
 
 class ProductDetailView(DetailView):
-    pass
-
-
-class ProductCreateView(LoginRequiredMixin, CreateView):
-    pass
-
-
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
-    pass
-
-
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
-    pass
+    model = Product
+    template_name = 'home/single-product.html'
+    context_object_name = 'product'
