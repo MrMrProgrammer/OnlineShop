@@ -100,21 +100,21 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <ul class="list-group space-15">
-                                                <li class="list-group-item">رنگ: مشکی</li>
-                                                <li class="list-group-item">بلوتوث:دارد</li>
-                                                <li class="list-group-item"> رزولوشن عکس : 12 مگاپیکسل</li>
-                                                <li class="list-group-item"> اندازه  : 6.1</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-6">
-                                            <ul class="list-group space-15">
-                                                <li class="list-group-item">قابلیت : ضد آب</li>
-                                                <li class="list-group-item"> نوع گوشی : دو گوشی</li>
-                                                <li class="list-group-item"> سیستم عامل : iOS 15</li>
-                                                <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>
 
+                                                {% for key, value in product_features.items %}
+                                                    <li class="list-group-item"> {{ key }} : {% for i in value %}{{ i }} {% endfor %}</li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
+{#                                        <div class="col-6">#}
+{#                                            <ul class="list-group space-15">#}
+{#                                                <li class="list-group-item">قابلیت : ضد آب</li>#}
+{#                                                <li class="list-group-item"> نوع گوشی : دو گوشی</li>#}
+{#                                                <li class="list-group-item"> سیستم عامل : iOS 15</li>#}
+{#                                                <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>#}
+{##}
+{#                                            </ul>#}
+{#                                        </div>#}
                                         <div class="col-lg-12 col-md-12 col-sm-12 product_main_pr">
 
                                             <div class="time_pr">

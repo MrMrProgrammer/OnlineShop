@@ -27,3 +27,24 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'home/single-product.html'
     context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        self.product_features = {}
+        for i in obj.features.all():
+
+            if i.stock >= 1 and i.is_active:
+                if i.feature_key in self.product_features.keys():
+                    self.product_features[i.feature_key].append(i.feature_value)
+                else:
+                    self.product_features[i.feature_key] = [i.feature_value]
+
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_features'] = self.product_features
+        return context
+
+
+

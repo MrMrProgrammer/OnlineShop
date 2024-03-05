@@ -47,7 +47,7 @@ class Category(Base):
 
 
 class Image(models.Model):
-    image = models.ImageField(_("عکس"), upload_to='images/')
+    image = models.ImageField(_("کاور"), upload_to='images/')
 
     class Meta:
         verbose_name = _("عکس")
@@ -63,17 +63,19 @@ class Product(Base):
                               on_delete=models.CASCADE,
                               related_name='product_brand',
                               verbose_name=_("برند"))
-    price = models.IntegerField(_("قیمت محصول"))
     images = models.ManyToManyField(Image, verbose_name=_("عکس‌ها"))
+    features = models.ManyToManyField('TypesFeature',
+                                      verbose_name=_("جزییات"),
+                                      related_name='product_features')
+    price = models.IntegerField(_("قیمت محصول"))
     stock = models.IntegerField(_("موجودی محصول"))
-    discount = models.IntegerField(
-        _("تخفیف محصول"), default=0)
+    discount = models.IntegerField(_("تخفیف محصول"), default=0)
     public = models.BooleanField(_("نمایش عمومی"), default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     @property
     def discount_price(self):
-        return self.price * (1-(self.discount / 100))
+        return int(self.price * (1-(self.discount / 100)))
 
     class Meta:
         verbose_name = _("محصول")
@@ -87,28 +89,26 @@ class Product(Base):
 
 
 special_features = (
-    ('screen', _('صفحه نمایش')),
-    ('camera', _('دوربین')),
-    ('battery', _('باتری')),
-    ('adapter', _('اداپتور')),
-    ('color', _('رنگ')),
+    ('صفحه نمایش', _('صفحه نمایش')),
+    ('دوربین', _('دوربین')),
+    ('باتری', _('باتری')),
+    ('شارژ', _('شارژر')),
+    ('رنگ', _('رنگ')),
 )
 
 
-class types_features(models.Model):
-    product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE)
-    special_feature = models.CharField(
-        _("ویژگی خاص محصول"), max_length=80, choices=special_features)
+class TypesFeature(models.Model):
+    feature_key = models.CharField(_("ویژگی خاص محصول"), max_length=80, choices=special_features)
     feature_value = models.CharField(_("توضیح ویژگی محصول"), max_length=250)
-    is_active = models.BooleanField(_("موجوده؟"), default=True)
+    stock = models.IntegerField(_("موجودی محصول"), default=1)
+    is_active = models.BooleanField(_("نمایش عمومی"), default=True)
 
     class Meta:
         verbose_name = _("ویژگی منحصربفرد محصول")
         verbose_name_plural = _("ویژگی های منحصر بفرد محصول")
 
     def __str__(self):
-        return self.feature_value
+        return f'{self.feature_key} - {self.feature_value}'
 
     def get_absolute_url(self):
         pass
