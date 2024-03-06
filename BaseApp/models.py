@@ -125,7 +125,7 @@ class Product(Base):
 #  _______      _____________
 
 
-class Objects(models.Model):
+class ProductObject(models.Model):
     product = models.ForeignKey(Product,
                                 verbose_name=_("محصول"),
                                 on_delete=models.CASCADE)

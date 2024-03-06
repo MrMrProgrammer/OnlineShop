@@ -1,5 +1,5 @@
 import re
-from .models import Product, Objects
+from .models import Product, ProductObject
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -9,7 +9,7 @@ class ProductListView(TemplateView):
 
 
 class ProductCategoryView(ListView):
-    model = Objects
+    model = ProductObject
     template_name = 'home/category-search.html'
 
     def get(self, request, *args, **kwargs):
@@ -24,7 +24,7 @@ class ProductCategoryView(ListView):
 
     def get_queryset(self):
 
-        self.result = Options.objects.filter(available=True).order_by('-created')
+        self.result = ProductObject.objects.filter(available=True).order_by('-created')
 
         for key, value in self.filtered_by.items():
             if key == 'brand':
@@ -38,16 +38,16 @@ class ProductCategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['objects'] =self.result
+        context['product_objects'] =self.result
         context['filtered_by'] = self.filtered_by
 
         return context
 
 
 class ProductDetailView(DetailView):
-    model = Objects
+    model = ProductObject
     template_name = 'home/single-product.html'
-    context_object_name = 'object'
+    context_object_name = 'product_object'
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)

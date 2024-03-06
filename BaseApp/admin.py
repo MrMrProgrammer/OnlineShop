@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from .models import Base, Product, Category, Image, Brand, TypesFeature, Objects
+from .models import Base, Product, Category, Image, Brand, TypesFeature, ProductObject
 
 admin.site.site_header = 'فروشگاه اینترنتی'
 
@@ -88,7 +88,7 @@ class ImageAdmin(admin.ModelAdmin):
     image_file.short_description = _('Image File Name')
 
 
-@admin.register(Objects)
+@admin.register(ProductObject)
 class ObjectsAdmin(admin.ModelAdmin):
     list_display = ('product', 'stock', 'price',
                     'discount', 'created', 'available')

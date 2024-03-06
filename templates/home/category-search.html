@@ -289,7 +289,7 @@
 <!--         -->
 <!--         -->
 
-                                            {% for object in objects %}
+                                            {% for p_object in product_objects %}
 
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
                                                 <div class="product-box">
@@ -303,7 +303,7 @@
                                                         </span>
                                                     </div>
                                                     <a class="product-box-img" href="#">
-                                                        <img src="{{ object.product.image.url }}" alt="">
+                                                        <img src="{{ p_object.product.image.url }}" alt="">
                                                         <ul>
 {#                                                            <li class="color_pro" style="background-color: black;top: 7px;"></li>#}
                                                         </ul>
@@ -311,19 +311,19 @@
                                                     <div class="product-box-content">
                                                         <div class="product-box-content-row">
                                                             <div class="product_title">
-                                                                <a href="{% url 'home:detail' object.pk %}">
-                                                                    {{ object.product.title }}
+                                                                <a href="{% url 'home:detail' p_object.pk %}">
+                                                                    {{ p_object.product.title }}
                                                                 </a>
                                                             </div>
                                                         </div>
                                                         <div class="product-box-row product_price_search">
                                                             <div class="price">
-                                                                {% if object.discount %}
-                                                                <del><span> {{ object.price }} <span> تومان </span></span></del>
-                                                                <span class="discount_badge">{{ object.discount }}%</span>
-                                                                <ins><span> {{ object.discount_price }} <span>تومان</span></span></ins>
+                                                                {% if p_object.discount %}
+                                                                <del><span> {{ p_object.price }} <span> تومان </span></span></del>
+                                                                <span class="discount_badge">{{ p_object.discount }}%</span>
+                                                                <ins><span> {{ p_object.discount_price }} <span>تومان</span></span></ins>
                                                                 {% else %}
-                                                                <ins><span>  {{ object.price }}   <span>  تومان  </span></span></ins>
+                                                                <ins><span>  {{ p_object.price }}   <span>  تومان  </span></span></ins>
                                                                 {% endif %}
 
 

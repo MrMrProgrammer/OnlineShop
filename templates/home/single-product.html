@@ -19,10 +19,10 @@
                                 <a href="category-search.html"><span>موبایل</span></a>
                             </li>
                             <li>
-                                <a href="category-search.html"><span>{{ object.product.brand }}</span></a>
+                                <a href="category-search.html"><span>{{ product_object.product.brand }}</span></a>
                             </li>
                             <li>
-                                <span> {{ object.product.title }}  </span>
+                                <span> {{ product_object.product.title }}  </span>
                             </li>
                         </ul>
                     </nav>
@@ -35,13 +35,13 @@
                             <div class="col-lg-5 col-md-6 col-sm-12">
                                 <div class="product-gallery default">
 
-                                    <img class="main_img_gallery" src="{{ object.product.image.url }}" />
+                                    <img class="main_img_gallery" src="{{ product_object.product.image.url }}" />
 
                                     <section class="testimonial py-3" id="testimonial">
                                         <div class="container">
                                             <div class="row gallery">
 
-                                                {% for image in object.product.images.all %}
+                                                {% for image in product_object.product.images.all %}
 
                                                 <div class="col-4 col-md-3 pd"><a href="{{ image.image.url }}" rel="prettyPhoto[gallery1]"><img src="{{ image.image.url }}" class="img-thumb" alt="" /></a></div>
 
@@ -91,9 +91,9 @@
 
 
                                     <h2 class="product-title ">
-                                        <a href="#">   {{ object.title }}  </a>
+                                        <a href="#">   {{ product_object.title }}  </a>
                                     </h2>
-                                    <hr class="hr-text" data-content="{{ object.description }}">
+                                    <hr class="hr-text" data-content="{{ product_object.description }}">
                                     <div class="row">
                                         <div class="col-6">
                                             <ul class="list-group space-15">
@@ -152,8 +152,8 @@
                                                     </div>
                                                     <div class="col-12 col-lg-6 col-md-6 border_left">
                                                         <div class="price space-15">
-                                                            <del><span>{{ object.price }}<span>تومان</span></span></del>
-                                                            <ins><span>{{ object.discount_price }}<span>تومان</span></span></ins>
+                                                            <del><span>{{ product_object.price }}<span>تومان</span></span></del>
+                                                            <ins><span>{{ product_object.discount_price }}<span>تومان</span></span></ins>
                                                         </div>
                                                         <div class="col-12 timer-title text--center">
 
@@ -217,12 +217,12 @@
                                         <div class="tab-pane active" id="desc" role="tabpanel" aria-expanded="true">
 
                                                 <header class="card-header">
-                                                    <h3 class="card-title"><span>بررسی تخصصی {{ object.product.title }} </span></h3>
+                                                    <h3 class="card-title"><span>بررسی تخصصی {{ product_object.product.title }} </span></h3>
                                                 </header>
                                                 <div class="parent-expert default">
                                                     <div class="content-expert">
                                                         <p>
-                                                            {{ object.product.descriptions }}
+                                                            {{ product_object.product.descriptions }}
                                                         </p>
                                                     </div>
                                                 </div>
