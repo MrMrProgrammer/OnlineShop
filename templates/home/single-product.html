@@ -19,13 +19,10 @@
                                 <a href="category-search.html"><span>موبایل</span></a>
                             </li>
                             <li>
-                                <a href="category-search.html"><span>برند ترین ها</span></a>
+                                <a href="category-search.html"><span>{{ object.product.brand }}</span></a>
                             </li>
                             <li>
-                                <a href="category-search.html"><span>اپل</span></a>
-                            </li>
-                            <li>
-                                <span> {{ product.title }}  </span>
+                                <span> {{ object.product.title }}  </span>
                             </li>
                         </ul>
                     </nav>
@@ -38,13 +35,13 @@
                             <div class="col-lg-5 col-md-6 col-sm-12">
                                 <div class="product-gallery default">
 
-                                    <img class="main_img_gallery" src="{{ product.image.url }}" />
+                                    <img class="main_img_gallery" src="{{ object.product.image.url }}" />
 
                                     <section class="testimonial py-3" id="testimonial">
                                         <div class="container">
                                             <div class="row gallery">
 
-                                                {% for image in product.images.all %}
+                                                {% for image in object.product.images.all %}
 
                                                 <div class="col-4 col-md-3 pd"><a href="{{ image.image.url }}" rel="prettyPhoto[gallery1]"><img src="{{ image.image.url }}" class="img-thumb" alt="" /></a></div>
 
@@ -94,21 +91,22 @@
 
 
                                     <h2 class="product-title ">
-                                        <a href="#">   {{ product.title }}  </a>
+                                        <a href="#">   {{ object.title }}  </a>
                                     </h2>
-                                    <hr class="hr-text" data-content="دو سیم‌ کارت ظرفیت 1 ترابایت و 6 گیگابایت رم ">
+                                    <hr class="hr-text" data-content="{{ object.description }}">
                                     <div class="row">
                                         <div class="col-6">
                                             <ul class="list-group space-15">
 
                                                 {% for key, value in product_features.items %}
+                                                    {% if key == 'رنگ' or key == 'رم' or key == 'حافظه داخلی' %}
                                                     <li class="list-group-item"> {{ key }} : {% for i in value %}{{ i }} {% endfor %}</li>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </ul>
                                         </div>
 {#                                        <div class="col-6">#}
 {#                                            <ul class="list-group space-15">#}
-{#                                                <li class="list-group-item">قابلیت : ضد آب</li>#}
 {#                                                <li class="list-group-item"> نوع گوشی : دو گوشی</li>#}
 {#                                                <li class="list-group-item"> سیستم عامل : iOS 15</li>#}
 {#                                                <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>#}
@@ -154,8 +152,8 @@
                                                     </div>
                                                     <div class="col-12 col-lg-6 col-md-6 border_left">
                                                         <div class="price space-15">
-                                                            <del><span>1,599,000<span>تومان</span></span></del>
-                                                            <ins><span>1,180,000<span>تومان</span></span></ins>
+                                                            <del><span>{{ object.price }}<span>تومان</span></span></del>
+                                                            <ins><span>{{ object.discount_price }}<span>تومان</span></span></ins>
                                                         </div>
                                                         <div class="col-12 timer-title text--center">
 
@@ -219,18 +217,12 @@
                                         <div class="tab-pane active" id="desc" role="tabpanel" aria-expanded="true">
 
                                                 <header class="card-header">
-                                                    <h3 class="card-title"><span>بررسی تخصصی گوشی iPhone 13 Pro Max </span></h3>
+                                                    <h3 class="card-title"><span>بررسی تخصصی {{ object.product.title }} </span></h3>
                                                 </header>
                                                 <div class="parent-expert default">
                                                     <div class="content-expert">
                                                         <p>
-                                                            مدل iPhone 13 Pro Max، آخرین نسخه از سری گوشی‌های iPhone ساخت شرکت اپل است که در تاریخ 14 سپتامبر 2021 معرفی شده است. این گوشی با صفحه‌نمایش سوپر رتینا XDR از نوع OLED و ابعاد 6.7 اینچ، عملکردی بی‌نظیر را در ارائه تصاویر با کیفیت بالا به کاربران خود ارائه می‌دهد. صفحه آن با درجه حفاظت IP68 در برابر آب و گرد و غبار مقاوم است.
-                                                            <br />
-                                                            گوشی iPhone 13 Pro Max دارای پردازنده A15 Bionic، پردازنده اختصاصی شرکت اپل است که همراه با 6 هسته و GPU 5 هسته‌ای طراحی شده است. این پردازنده با فناوری 5 نانومتر قدرتمندی و قابلیت انجام عملیات پردازشی سریع در برنامه‌های گوناگون را فراهم می‌کند.
-                                                            <br />
-                                                            دوربین‌های iPhone 13 Pro Max شامل سه لنز 12 مگاپیکسلی هستند که شامل لنز اصلی، لنز تله‌فوتو و لنز زاویه یک‌صدم گنجایش هستند که مجموعه ای از قابلیت‌های عکاسی شامل فوکوس خودکار بصری، حالت زوم، اپتیکال زوم، پورتره، ثبت عکس با رنگ‌های بیشتر و تصاویر با کیفیت بالا را فراهم می‌کند.
-                                                            <br />
-                                                            این گوشی دارای سیستم عامل iOS 15 است که با مجموعه دستورالعمل‌ها و روش‌های جدید برای ارتقاء تجربیات کاربری و تضمین امنیت اطلاعات کاربر فراهم می‌شود. همچنین، دارای جعبه باتری پورت هسته هیدروژن است که زمان شارژ موثر گوشی را افزایش می‌دهد.
+                                                            {{ object.product.descriptions }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -244,15 +236,20 @@
 
                                                 <div class="col-12">
                                                     <ul class="list-group ">
-                                                        <li class="list-group-item">رنگ: مشکی</li>
-                                                        <li class="list-group-item">بلوتوث:دارد</li>
-                                                        <li class="list-group-item"> رزولوشن عکس : 12 مگاپیکسل</li>
-                                                        <li class="list-group-item" > اندازه  : 6.1</li>
 
-                                                            <li class="list-group-item">قابلیت : ضد آب</li>
-                                                            <li class="list-group-item"> نوع گوشی : دو گوشی</li>
-                                                            <li class="list-group-item"> سیستم عامل : iOS 15</li>
-                                                            <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>
+                                                        {% for key, value in product_features.items %}
+                                                            <li class="list-group-item"> {{ key }} : {% for i in value %}{{ i }} {% endfor %}</li>
+                                                        {% endfor %}
+
+{#                                                        <li class="list-group-item">رنگ: مشکی</li>#}
+{#                                                        <li class="list-group-item">بلوتوث:دارد</li>#}
+{#                                                        <li class="list-group-item"> رزولوشن عکس : 12 مگاپیکسل</li>#}
+{#                                                        <li class="list-group-item" > اندازه  : 6.1</li>#}
+{##}
+{#                                                            <li class="list-group-item">قابلیت : ضد آب</li>#}
+{#                                                            <li class="list-group-item"> نوع گوشی : دو گوشی</li>#}
+{#                                                            <li class="list-group-item"> سیستم عامل : iOS 15</li>#}
+{#                                                            <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>#}
 
 
                                                     </ul>
