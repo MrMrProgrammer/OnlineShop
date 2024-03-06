@@ -28,17 +28,17 @@ class ProductAdmin(admin.ModelAdmin):
 
     def make_public(self, request, queryset):
         queryset.update(public=True)
-    make_public.short_description = _('Mark selected products as public')
+    make_public.short_description = _('زدن علامت')
 
     def make_private(self, request, queryset):
         queryset.update(public=False)
-    make_private.short_description = _('Mark selected products as private')
+    make_private.short_description = _('برداشتن علامت')
 
     def duplicate_product(self, request, queryset):
         for product in queryset:
             product.pk = None
             product.save()
-    duplicate_product.short_description = _('Duplicate selected products')
+    duplicate_product.short_description = _('کپی')
 
 
 @admin.register(Category)
@@ -64,7 +64,7 @@ class CategoryAdmin(admin.ModelAdmin):
         for category in queryset:
             category.pk = None
             category.save()
-    duplicate_category.short_description = _('Duplicate selected categories')
+    duplicate_category.short_description = _('کپی')
 
 
 @admin.register(Image)
