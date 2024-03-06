@@ -3,10 +3,13 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from autoslug import AutoSlugField
 
+#  _______      _____________
+
 
 class Base(models.Model):
     title = models.CharField(_("عنوان"), max_length=50, blank=True)
-    slug = AutoSlugField(_("ادرس"), unique=True, max_length=100, populate_from='title')
+    slug = AutoSlugField(_("ادرس"), unique=True,
+                         max_length=100, populate_from='title')
     image = models.ImageField(_("عکس"),
                               upload_to='images/',
                               height_field=None,
@@ -14,6 +17,8 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+
+#  _______      _____________
 
 
 class Brand(Base):
@@ -27,6 +32,8 @@ class Brand(Base):
 
     def get_absolute_url(self):
         return reverse("", args=[self.slug])
+
+#  _______      _____________
 
 
 class Category(Base):
@@ -45,6 +52,8 @@ class Category(Base):
     def get_absolute_url(self):
         return reverse("", args=[self.slug])
 
+#  _______      _____________
+
 
 class Image(models.Model):
     image = models.ImageField(_("کاور"), upload_to='images/')
@@ -52,6 +61,34 @@ class Image(models.Model):
     class Meta:
         verbose_name = _("عکس")
         verbose_name_plural = _("عکس‌ها")
+
+#  _______      _____________
+
+
+special_features = (
+    ('scren page', _('صفحه نمایش')),
+    ('cammera', _('دوربین')),
+    ('battrey', _('باتری')),
+    ('adaptor', _('شارژر')),
+    ('color', _('رنگ')),
+)
+
+
+class TypesFeature(models.Model):
+    feature_key = models.CharField(
+        _("ویژگی خاص محصول"), max_length=80, choices=special_features)
+    feature_value = models.CharField(_("توضیح ویژگی محصول"), max_length=250)
+    stock = models.IntegerField(_("موجودی محصول"), default=1)
+    is_active = models.BooleanField(_("نمایش عمومی"), default=True)
+
+    class Meta:
+        verbose_name = _("ویژگی منحصربفرد محصول")
+        verbose_name_plural = _("ویژگی های منحصر بفرد محصول")
+
+    def __str__(self):
+        return f'{self.feature_key} - {self.feature_value}'
+
+#  _______      _____________
 
 
 class Product(Base):
@@ -67,11 +104,8 @@ class Product(Base):
     features = models.ManyToManyField('TypesFeature',
                                       verbose_name=_("جزییات"),
                                       related_name='product_features')
-    price = models.IntegerField(_("قیمت محصول"))
-    stock = models.IntegerField(_("موجودی محصول"))
-    discount = models.IntegerField(_("تخفیف محصول"), default=0)
+
     public = models.BooleanField(_("نمایش عمومی"), default=False)
-    created = models.DateTimeField(auto_now_add=True)
 
     @property
     def discount_price(self):
@@ -84,31 +118,33 @@ class Product(Base):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("", args=[self.slug])
+    def get_url(self):
+        return reverse('products_detail', args=[self.Category.slug, self.slug])
 
 
-special_features = (
-    ('صفحه نمایش', _('صفحه نمایش')),
-    ('دوربین', _('دوربین')),
-    ('باتری', _('باتری')),
-    ('شارژ', _('شارژر')),
-    ('رنگ', _('رنگ')),
-)
+#  _______      _____________
 
 
-class TypesFeature(models.Model):
-    feature_key = models.CharField(_("ویژگی خاص محصول"), max_length=80, choices=special_features)
-    feature_value = models.CharField(_("توضیح ویژگی محصول"), max_length=250)
-    stock = models.IntegerField(_("موجودی محصول"), default=1)
-    is_active = models.BooleanField(_("نمایش عمومی"), default=True)
+class Options(models.Model):
+    product = models.ForeignKey(Product, verbose_name=_(
+        "محصول"), on_delete=models.CASCADE)
+    features = models.ManyToManyField(
+        TypesFeature, verbose_name=_("ویژگی های متغیر محصول"))
+
+    stock = models.IntegerField(_("موجودی محصول"))
+    price = models.IntegerField(_("قیمت محصول"))
+    discount = models.IntegerField(_("تخفیف محصول"), default=0)
+
+    created = models.DateTimeField(
+        _("زمان بارگزاری"), auto_now=True, auto_now_add=False)
+    available = models.BooleanField(_("در دسترسه؟"))
 
     class Meta:
-        verbose_name = _("ویژگی منحصربفرد محصول")
-        verbose_name_plural = _("ویژگی های منحصر بفرد محصول")
+        verbose_name = _("متغیر محصول")
+        verbose_name_plural = _("متغیر های محصول")
 
     def __str__(self):
-        return f'{self.feature_key} - {self.feature_value}'
+        return str(self.product)
 
     def get_absolute_url(self):
-        pass
+        return reverse("_detail", kwargs={"pk": self.pk})
