@@ -133,100 +133,100 @@
                             </header>
                             <div class="box-content">
                                 <div class="collapse show" >
-                                   
+                                   {% for brand in brands %}
                                         <div class="form-account-agree">
                                             <label class="checkbox-form checkbox-primary">
                                                 <input type="checkbox" id="agree">
                                                 <span class="checkbox-check"></span>
                                             </label>
-                                            <label for="agree">سامسونگ</label>
+                                            <label for="agree">{{ brand }}</label>
                                         </div>
-                                 
-                                    
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> اپل</label>
-                                        </div>
-                                    
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> هواوی</label>
-                                        </div>
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> شیائومی</label>
-                                        </div>
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> سونی</label>
-                                        </div>
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> ایسوس</label>
-                                        </div>
-                                        <div class="form-account-agree">
-                                            <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
-                                                <span class="checkbox-check"></span>
-                                            </label>
-                                            <label for="agree"> نوکیا</label>
-                                        </div>
+                                    {% endfor %}
+{#                                    #}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> اپل</label>#}
+{#                                        </div>#}
+{#                                    #}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> هواوی</label>#}
+{#                                        </div>#}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> شیائومی</label>#}
+{#                                        </div>#}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> سونی</label>#}
+{#                                        </div>#}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> ایسوس</label>#}
+{#                                        </div>#}
+{#                                        <div class="form-account-agree">#}
+{#                                            <label class="checkbox-form checkbox-primary">#}
+{#                                                <input type="checkbox" id="agree">#}
+{#                                                <span class="checkbox-check"></span>#}
+{#                                            </label>#}
+{#                                            <label for="agree"> نوکیا</label>#}
+{#                                        </div>#}
                                 </div>
                             </div>
                         </div>
                        
-                        <div class="box">
-                            <header class="card-header">
-                                <h3 class="card-title"><span class="space-right-10">سیستم عامل</span></h3>
-                            </header>
-                            <div class="box-content">
-                                <div class="collapse show">
-                                    <div class="form-account-agree">
-                                        <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
-                                            <span class="checkbox-check"></span>
-                                        </label>
-                                        <label for="agree"> اندروید</label>
-                                    </div>
-                                    <div class="form-account-agree">
-                                        <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
-                                            <span class="checkbox-check"></span>
-                                        </label>
-                                        <label for="agree"> iOS</label>
-                                    </div>
-                                    <div class="form-account-agree">
-                                        <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
-                                            <span class="checkbox-check"></span>
-                                        </label>
-                                        <label for="agree"> ویندوز فون</label>
-                                    </div>
-                                    <div class="form-account-agree">
-                                        <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
-                                            <span class="checkbox-check"></span>
-                                        </label>
-                                        <label for="agree"> سایر</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{#                        <div class="box">#}
+{#                            <header class="card-header">#}
+{#                                <h3 class="card-title"><span class="space-right-10">سیستم عامل</span></h3>#}
+{#                            </header>#}
+{#                            <div class="box-content">#}
+{#                                <div class="collapse show">#}
+{#                                    <div class="form-account-agree">#}
+{#                                        <label class="checkbox-form checkbox-primary">#}
+{#                                            <input type="checkbox" id="agree">#}
+{#                                            <span class="checkbox-check"></span>#}
+{#                                        </label>#}
+{#                                        <label for="agree"> اندروید</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-account-agree">#}
+{#                                        <label class="checkbox-form checkbox-primary">#}
+{#                                            <input type="checkbox" id="agree">#}
+{#                                            <span class="checkbox-check"></span>#}
+{#                                        </label>#}
+{#                                        <label for="agree"> iOS</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-account-agree">#}
+{#                                        <label class="checkbox-form checkbox-primary">#}
+{#                                            <input type="checkbox" id="agree">#}
+{#                                            <span class="checkbox-check"></span>#}
+{#                                        </label>#}
+{#                                        <label for="agree"> ویندوز فون</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-account-agree">#}
+{#                                        <label class="checkbox-form checkbox-primary">#}
+{#                                            <input type="checkbox" id="agree">#}
+{#                                            <span class="checkbox-check"></span>#}
+{#                                        </label>#}
+{#                                        <label for="agree"> سایر</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                       
                         <div class="box">
                             <div class="box-content">
@@ -252,30 +252,28 @@
                                     <li>
                                         <a data-toggle="tab" href="#most-visited" role="tab" aria-expanded="false">پربازدیدترین</a>
                                     </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#delivery" role="tab" aria-expanded="true">سریع‌ترین ارسال</a>
-                                    </li>
+{#                                    <li>#}
+{#                                        <a data-toggle="tab" href="#delivery" role="tab" aria-expanded="true">سریع‌ترین ارسال</a>#}
+{#                                    </li>#}
                                     <li>
                                         <a data-toggle="tab" href="#most-seller" role="tab"
                                            aria-expanded="false">‌بیشترین فروش‌</a>
                                     </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#price" role="tab"
-                                           aria-expanded="false">‌براساس قیمت</a>
-                                    </li>
+{#                                    <li>#}
+{#                                        <a data-toggle="tab" href="#price" role="tab"#}
+{#                                           aria-expanded="false">‌براساس قیمت</a>#}
+{#                                    </li>#}
                                 </ul>
                                 <div class="box_filter_search">
                                     <ul class="filter_search">
-                                        <li>
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-
-                                            <span>1200 تومن به بالا</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-
-                                            <span>مشکی</span>
-                                        </li>
+                                        {% if filtered_by %}
+                                            {% for key, value in filtered_by.items %}
+                                                <li>
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                    <span>{{ key }} : {{ value }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -291,7 +289,7 @@
 <!--         -->
 <!--         -->
 
-                                            {% for product in products_category %}
+                                            {% for p_object in product_objects %}
 
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
                                                 <div class="product-box">
@@ -305,29 +303,27 @@
                                                         </span>
                                                     </div>
                                                     <a class="product-box-img" href="#">
-                                                        <img src="{{ product.image.url }}" alt="">
+                                                        <img src="{{ p_object.product.image.url }}" alt="">
                                                         <ul>
-                                                            <li class="color_pro" style="background-color: #2fabd3;top: 7px;"></li>
-                                                            <li class="color_pro" style="background-color: #4e1dac;top: 20px;"></li>
-                                                            <li class="color_pro" style="background-color: #ff0075;top: 33px;"></li>
+{#                                                            <li class="color_pro" style="background-color: black;top: 7px;"></li>#}
                                                         </ul>
                                                     </a>
                                                     <div class="product-box-content">
                                                         <div class="product-box-content-row">
                                                             <div class="product_title">
-                                                                <a href="{% url 'home:detail' product.slug %}">
-                                                                    {{ product.title }}
+                                                                <a href="{% url 'home:detail' p_object.pk %}">
+                                                                    {{ p_object.product.title }}
                                                                 </a>
                                                             </div>
                                                         </div>
                                                         <div class="product-box-row product_price_search">
                                                             <div class="price">
-                                                                {% if product.discount %}
-                                                                <del><span> {{ product.price }} <span> تومان </span></span></del>
-                                                                <span class="discount_badge">{{ product.discount }}%</span>
-                                                                <ins><span> {{ product.discount_price }} <span>تومان</span></span></ins>
+                                                                {% if p_object.discount %}
+                                                                <del><span> {{ p_object.price }} <span> تومان </span></span></del>
+                                                                <span class="discount_badge">{{ p_object.discount }}%</span>
+                                                                <ins><span> {{ p_object.discount_price }} <span>تومان</span></span></ins>
                                                                 {% else %}
-                                                                <ins><span>  {{ product.price }}   <span>  تومان  </span></span></ins>
+                                                                <ins><span>  {{ p_object.price }}   <span>  تومان  </span></span></ins>
                                                                 {% endif %}
 
 

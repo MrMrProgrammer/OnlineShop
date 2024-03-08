@@ -118,152 +118,157 @@
 
 
 
-                    {% for category in categories %}
+                    {% for category, sub_category in all_categories.items %}
                                 <li class="child_mno-drobdown">
 
 
-                                    <a href="{% url 'home:filter' category.title %}" class="run">{{ category.title }}</a>
+                                    <a href="{% url 'home:filter' category.id %}" class="run">{{ category.title }}</a>
 
 
                                     <div class="mega_meno">
                                         <ul class="list_drobdown--item">
                                             <li class="list_drobdown--items border_left--red">
-                                                <a href="#"
+                                                <a href="{% url 'home:filter' category.id %}"
                                                    class="list__drobdown--link texr_header block_block">
                                                     همه محصولات موبایل
                                                 </a>
                                             </li>
                                             <ul class="ul_list">
-                                                <ul class="mega_meno--block">
-
-
-                                                    <li class="list_mega border_left">
-                                                        <a href="#" class="mega_link--link texr_header">گوشی براساس قیمت</a>
-                                                    </li>
-
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 2 میلیون تومان</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link"> گوشی تا 5 میلیون تومان</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 7 میلیون تومان</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 15 میلیون تومان</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی بالای 15 میلیون تومان</a>
-                                                    </li>
-                                                    <li class="list_mega border_left">
-                                                        <a href="#" class="mega_link--link texr_header">گوشی براساس حافظه داخلی</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 16 گیگابایت</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 32 گیگا بایت</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 32 گیگا بایت</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 128 گیگابایت</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی تا 256 گیگابایت</a>
-                                                    </li>
-                                                </ul>
+{#                                                <ul class="mega_meno--block">#}
+{#                                                    <li class="list_mega border_left">#}
+{#                                                        <a href="#" class="mega_link--link texr_header">گوشی براساس قیمت</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 2 میلیون تومان</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link"> گوشی تا 5 میلیون تومان</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 7 میلیون تومان</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 15 میلیون تومان</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی بالای 15 میلیون تومان</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list_mega border_left">#}
+{#                                                        <a href="#" class="mega_link--link texr_header">گوشی براساس حافظه داخلی</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 16 گیگابایت</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 32 گیگا بایت</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 32 گیگا بایت</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 128 گیگابایت</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی تا 256 گیگابایت</a>#}
+{#                                                    </li>#}
+{#                                                </ul>#}
                                             </ul>
-                                            <ul class="ul_list--cecond">
-                                                <ul class="mega_meno__cecond">
-
-                                                    <li class="list_mega border_left">
-                                                        <a href="#" class="mega_link--link texr_header">
-                                                            رزولوشن عکس
-                                                        </a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">تا ۱۳ مگاپیکسل</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link"> تا ۱۶ مگاپیکسل</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">تا ۴۸ مگاپیکسل</a>
-                                                    </li>
-                                                    <li class="list_mega ">
-                                                        <a href="#" class="mega_link--link ">تا ۶۴ مگاپیکسل</a>
-                                                    </li>
-                                                    <li class="list_mega ">
-                                                        <a href="#" class="mega_link--link ">تا ۱۰۸ مگاپیکسل</a>
-                                                    </li>
-                                                    <li class="list_mega border_left">
-                                                        <a href="#" class="mega_link--link texr_header">
-                                                            گوشی براساس کاربری
-                                                        </a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی اقتصادی</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link"> گوشی میان رده</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی دانش آموزی</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی گیمینگ</a>
-                                                    </li>
-                                                    <li class="list__mega--itmes">
-                                                        <a href="#" class="list__mega--link">گوشی پرچمدار</a>
-                                                    </li>
-
-                                                </ul>
-                                            </ul>
+{#                                            <ul class="ul_list--cecond">#}
+{#                                                <ul class="mega_meno__cecond">#}
+{##}
+{#                                                    <li class="list_mega border_left">#}
+{#                                                        <a href="#" class="mega_link--link texr_header">#}
+{#                                                            رزولوشن عکس#}
+{#                                                        </a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">تا ۱۳ مگاپیکسل</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link"> تا ۱۶ مگاپیکسل</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">تا ۴۸ مگاپیکسل</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list_mega ">#}
+{#                                                        <a href="#" class="mega_link--link ">تا ۶۴ مگاپیکسل</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list_mega ">#}
+{#                                                        <a href="#" class="mega_link--link ">تا ۱۰۸ مگاپیکسل</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list_mega border_left">#}
+{#                                                        <a href="#" class="mega_link--link texr_header">#}
+{#                                                            گوشی براساس کاربری#}
+{#                                                        </a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی اقتصادی</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link"> گوشی میان رده</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی دانش آموزی</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی گیمینگ</a>#}
+{#                                                    </li>#}
+{#                                                    <li class="list__mega--itmes">#}
+{#                                                        <a href="#" class="list__mega--link">گوشی پرچمدار</a>#}
+{#                                                    </li>#}
+{##}
+{#                                                </ul>#}
+{#                                            </ul>#}
                                             <li class="list_drobdown--items border_left--red">
                                                 <a href="#" class="list__drobdown--link texr_header">لوازم جانبی</a>
                                             </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">کیف گوشی </a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">کاور گوشی </a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link"> شارژر همراه</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">گارد گوشی</a>
-                                            </li>
+                                            {% for item in sub_category %}
+                                                    <li class="list_drobdown--items">
+                                                        <a href="{% url 'home:filter' item.id %}" class="list__drobdown--link">{{ item.title }} </a>
+                                                    </li>
+                                            {% endfor %}
+
+
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">کاور گوشی </a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link"> شارژر همراه</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">گارد گوشی</a>#}
+{#                                            </li>#}
+
                                             <li class="list_drobdown--items border_left--red">
                                                 <a href="#" class="list__drobdown--link texr_header">برند ترین ها</a>
                                             </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">اپل</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">سامسونگ</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">هوآوی  </a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">شیائومی</a>
-                                            </li>
-                                            <li class="list_drobdown--items border_left--red">
-                                                <a href="#" class="list__drobdown--link texr_header">سیستم عامل</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link"> اندروید</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">آی او اس</a>
-                                            </li>
-                                            <li class="list_drobdown--items">
-                                                <a href="#" class="list__drobdown--link">ویندوز</a>
-                                            </li>
+                                            {% for brand in brands %}
+                                                <li class="list_drobdown--items">
+                                                    <a href="{% url 'home:filter' category.id %}?brand={{ brand.title }}" class="list__drobdown--link">{{ brand.title }}</a>
+                                                </li>
+                                            {% endfor %}
+
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">سامسونگ</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">هوآوی  </a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">شیائومی</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items border_left--red">#}
+{#                                                <a href="#" class="list__drobdown--link texr_header">سیستم عامل</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link"> اندروید</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">آی او اس</a>#}
+{#                                            </li>#}
+{#                                            <li class="list_drobdown--items">#}
+{#                                                <a href="#" class="list__drobdown--link">ویندوز</a>#}
+{#                                            </li>#}
                                         </ul>
                                     </div>
 

@@ -1,4 +1,5 @@
-from .models import Product
+import re
+from .models import Product, ProductObject
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -8,42 +9,60 @@ class ProductListView(TemplateView):
 
 
 class ProductCategoryView(ListView):
-    model = Product
+    model = ProductObject
     template_name = 'home/category-search.html'
-    context_object_name = 'products'
 
-    def dispatch(self, request, *args, **kwargs):
-        self.category = kwargs['category']
-        return super().dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        self.category = kwargs['category_id']
+        self.filtered_by = {}
+
+        pattern = re.compile(r'[^a-zA-Z\s]')
+        for k, v in request.GET.lists():
+            self.filtered_by[k] = pattern.sub('', str(v))
+
+        return super().get(self, request, *args, **kwargs)
+
+    def get_queryset(self):
+
+        self.result = ProductObject.objects.filter(available=True).order_by('-created')
+
+        for key, value in self.filtered_by.items():
+            if key == 'brand':
+                self.result = self.result.filter(product__brand__title=value)
+
+            # if key == 'exist' and value == 'True': self.queryset.filter(stock__gte=1)
+            # if key == 'by_popular': self.queryset.filter(recomended__range=6)
+
+        return self.result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.queryset = Product.objects.filter(public=True).filter(category__title__exact=self.category)
-        context['products_category'] = self.queryset
+
+        context['product_objects'] =self.result
+        context['filtered_by'] = self.filtered_by
+
         return context
 
 
 class ProductDetailView(DetailView):
-    model = Product
+    model = ProductObject
     template_name = 'home/single-product.html'
-    context_object_name = 'product'
+    context_object_name = 'product_object'
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
-        self.product_features = {}
+        self.all_product_features = {}
         for i in obj.features.all():
-
-            if i.stock >= 1 and i.is_active:
-                if i.feature_key in self.product_features.keys():
-                    self.product_features[i.feature_key].append(i.feature_value)
-                else:
-                    self.product_features[i.feature_key] = [i.feature_value]
+            if i.feature_key in self.all_product_features.keys():
+                self.all_product_features[i.feature_key].append(i.feature_value)
+            else:
+                self.all_product_features[i.feature_key] = [i.feature_value]
 
         return obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['product_features'] = self.product_features
+        context['product_features'] = self.all_product_features
         return context
 
 

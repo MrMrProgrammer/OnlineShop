@@ -10,7 +10,7 @@ class Base(models.Model):
     title = models.CharField(_("عنوان"), max_length=50, blank=True)
     slug = AutoSlugField(_("ادرس"), unique=True,
                          max_length=100, populate_from='title')
-    image = models.ImageField(_("عکس"),
+    image = models.ImageField(_("عکس کاور"),
                               upload_to='images/',
                               height_field=None,
                               width_field=None, max_length=None)
@@ -24,8 +24,8 @@ class Base(models.Model):
 class Brand(Base):
 
     class Meta:
-        verbose_name = _("برند محصول")
-        verbose_name_plural = _("برند های محصول")
+        verbose_name = _("برند")
+        verbose_name_plural = _("برند ها")
 
     def __str__(self):
         return self.title
@@ -37,10 +37,12 @@ class Brand(Base):
 
 
 class Category(Base):
-    parent = models.ForeignKey('self', default=None, null=True, blank=True, verbose_name=_(
-        "دسته بندی"), on_delete=models.CASCADE)
-
-    sub_category = models.BooleanField(_("زیرمجموعه"), default=False)
+    parent = models.ForeignKey('self',
+                               default=None,
+                               null=True,
+                               blank=True,
+                               verbose_name=_("دسته بندی"),
+                               on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("دسته بندی")
@@ -56,7 +58,7 @@ class Category(Base):
 
 
 class Image(models.Model):
-    image = models.ImageField(_("کاور"), upload_to='images/')
+    image = models.ImageField(_("عکس"), upload_to='images/')
 
     class Meta:
         verbose_name = _("عکس")
@@ -66,24 +68,26 @@ class Image(models.Model):
 
 
 special_features = (
-    ('scren page', _('صفحه نمایش')),
-    ('cammera', _('دوربین')),
-    ('battrey', _('باتری')),
-    ('adaptor', _('شارژر')),
-    ('color', _('رنگ')),
+    ('سایز صفحه نمایش', _('صفحه نمایش')),
+    ('دوربین', _('دوربین')),
+    ('باتری', _('باتری')),
+    ('آداپتور', _('شارژر')),
+    ('رنگ', _('رنگ')),
+    ('رم', _('رم')),
+    ('پردازنده', _('پردازنده')),
+    ('گرافیک', _('گرافیک')),
+    ('حافظه داخلی', _('حافظه داخلی')),
 )
 
 
 class TypesFeature(models.Model):
-    feature_key = models.CharField(
-        _("ویژگی خاص محصول"), max_length=80, choices=special_features)
-    feature_value = models.CharField(_("توضیح ویژگی محصول"), max_length=250)
-    stock = models.IntegerField(_("موجودی محصول"), default=1)
-    is_active = models.BooleanField(_("نمایش عمومی"), default=True)
+    feature_key = models.CharField(_("مشخصات"), max_length=80, choices=special_features)
+    feature_value = models.CharField(_("مقدار"), max_length=250)
 
     class Meta:
-        verbose_name = _("ویژگی منحصربفرد محصول")
-        verbose_name_plural = _("ویژگی های منحصر بفرد محصول")
+        unique_together = ('feature_key', 'feature_value')
+        verbose_name = _("مشخصات")
+        verbose_name_plural = _("مشخصات")
 
     def __str__(self):
         return f'{self.feature_key} - {self.feature_value}'
@@ -92,24 +96,20 @@ class TypesFeature(models.Model):
 
 
 class Product(Base):
-    category = models.ForeignKey(Category,
-                                 on_delete=models.CASCADE,
-                                 related_name='product_category',
-                                 verbose_name=_("دسته بندی"))
+    category = models.ManyToManyField(Category,
+                                      verbose_name=_("دسته بندی ها"))
     brand = models.ForeignKey(Brand,
                               on_delete=models.CASCADE,
                               related_name='product_brand',
                               verbose_name=_("برند"))
-    images = models.ManyToManyField(Image, verbose_name=_("عکس‌ها"))
+    images = models.ManyToManyField(Image,
+                                    verbose_name=_("عکس‌ها"),
+                                    blank=True)
     features = models.ManyToManyField('TypesFeature',
                                       verbose_name=_("جزییات"),
                                       related_name='product_features')
-
+    descriptions = models.TextField(_('توضیح اجمالی محصول'), max_length=300)
     public = models.BooleanField(_("نمایش عمومی"), default=False)
-
-    @property
-    def discount_price(self):
-        return int(self.price * (1-(self.discount / 100)))
 
     class Meta:
         verbose_name = _("محصول")
@@ -125,26 +125,31 @@ class Product(Base):
 #  _______      _____________
 
 
-class Options(models.Model):
-    product = models.ForeignKey(Product, verbose_name=_(
-        "محصول"), on_delete=models.CASCADE)
-    features = models.ManyToManyField(
-        TypesFeature, verbose_name=_("ویژگی های متغیر محصول"))
+class ProductObject(models.Model):
+    product = models.ForeignKey(Product,
+                                verbose_name=_("محصول"),
+                                on_delete=models.CASCADE)
+    features = models.ManyToManyField(TypesFeature,
+                                      verbose_name=_("ویژگی های کالا"))
 
-    stock = models.IntegerField(_("موجودی محصول"))
-    price = models.IntegerField(_("قیمت محصول"))
-    discount = models.IntegerField(_("تخفیف محصول"), default=0)
-
+    stock = models.IntegerField(_("موجودی کالا"), default=1)
+    price = models.IntegerField(_("قیمت کالا"))
+    discount = models.IntegerField(_("تخفیف کالا"), default=0)
+    description = models.TextField(_('توضیح کالا'), max_length=100)
+    available = models.BooleanField(_("در دسترس"))
     created = models.DateTimeField(
-        _("زمان بارگزاری"), auto_now=True, auto_now_add=False)
-    available = models.BooleanField(_("در دسترسه؟"))
+        _("زمان بارگزاری"), auto_now=False, auto_now_add=True)
 
     class Meta:
-        verbose_name = _("متغیر محصول")
-        verbose_name_plural = _("متغیر های محصول")
+        verbose_name = _("کالا")
+        verbose_name_plural = _("کالا ها")
 
     def __str__(self):
         return str(self.product)
+
+    @property
+    def discount_price(self):
+        return int(self.price * (1-(self.discount / 100)))
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
