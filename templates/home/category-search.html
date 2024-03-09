@@ -302,7 +302,7 @@
                                                             <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
                                                         </span>
                                                     </div>
-                                                    <a class="product-box-img" href="#">
+                                                    <a class="product-box-img" href="{% url 'home:detail' p_object.pk %}">
                                                         <img src="{{ p_object.product.image.url }}" alt="">
                                                         <ul>
 {#                                                            <li class="color_pro" style="background-color: black;top: 7px;"></li>#}

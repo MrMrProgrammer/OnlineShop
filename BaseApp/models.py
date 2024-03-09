@@ -148,8 +148,6 @@ class ProductObject(models.Model):
     stock = models.IntegerField(_("موجودی کالا"), default=1)
     price = models.IntegerField(_("قیمت کالا"))
     discount = models.IntegerField(_("تخفیف کالا"), default=0)
-    sold = models.IntegerField(_("فروش رفته"), default=0)
-    users_recommend = models.IntegerField(_("پیشنهاد خریداران"), default=0)
     description = models.TextField(_('توضیح کالا'), max_length=100)
     available = models.BooleanField(_("در دسترس"))
     created = models.DateTimeField(
