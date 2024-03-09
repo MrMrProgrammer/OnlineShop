@@ -63,8 +63,8 @@ class CategoryAdmin(admin.ModelAdmin):
     actions = ['duplicate_category']
 
     fieldsets = (
-        (_('دسته‌بندی ها:'), {'fields': ('parent', 'slug', )}),
-        (('عنوان'), {'fields': ('title', 'image',)}),
+        (_('دسته‌بندی ها:'), {'fields': ('parent', )}),
+        (('عنوان'), {'fields': ('title', 'slug', 'image',)}),
     )
 
     def image_tag(self, obj):
@@ -139,14 +139,12 @@ class ProductObjectAdmin(admin.ModelAdmin):
 
     # actions = (add_to_other_categories, )
 
-    readonly_fields = ('sold', 'users_recommend',)
-
     fieldsets = (
         (None, {
-            'fields': ('slug', 'product', 'features', 'description')
+            'fields': ('product', 'features', 'description')
         }),
         (_('Inventory'), {
-            'fields': ('stock', 'available', 'sold'),
+            'fields': ('stock', 'available'),
         }),
         (_('Pricing'), {
             'fields': ('price', 'discount'),
@@ -163,11 +161,20 @@ class ProductObjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(Brand)
-class ImageAdmin(admin.ModelAdmin):
+class BrandAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
     fieldsets = (
-        (None, {'fields': ('image', )}),
+        (None, {'fields': ('title', 'image', 'slug')}),
     )
+
+    list_display = ('title', 'image_tag')
+
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: \
+                45px; height:45px;" />', obj.image.url)
+        return "-"
+    image_tag.short_description = _('Image')
 
 admin.site.register(ProductFeature, )

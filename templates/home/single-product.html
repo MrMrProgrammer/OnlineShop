@@ -152,8 +152,18 @@
                                                     </div>
                                                     <div class="col-12 col-lg-6 col-md-6 border_left">
                                                         <div class="price space-15">
-                                                            <del><span>{{ product_object.price }}<span>تومان</span></span></del>
-                                                            <ins><span>{{ product_object.discount_price }}<span>تومان</span></span></ins>
+
+
+                                                            {% if product_object.discount %}
+                                                            <del><span> {{ product_object.price }} <span> تومان </span></span></del>
+                                                            <span class="discount_badge">{{ product_object.discount }}%</span>
+                                                            <ins><span> {{ product_object.discount_price }} <span>تومان</span></span></ins>
+                                                            {% else %}
+                                                            <ins><span>  {{ product_object.price }}   <span>  تومان  </span></span></ins>
+                                                            {% endif %}
+
+
+
                                                         </div>
                                                         <div class="col-12 timer-title text--center">
 
