@@ -1,15 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-from autoslug import AutoSlugField
-
 #  _______      _____________
 
 
 class Base(models.Model):
-    title = models.CharField(_("عنوان"), max_length=50, blank=True)
-    slug = AutoSlugField(_("ادرس"), unique=True,
-                         max_length=100, populate_from='title')
+    title = models.CharField(_("عنوان"), max_length=50, blank=True, unique=True)
+    slug = models.SlugField(_("ادرس"), unique=True, max_length=100)
     image = models.ImageField(_("عکس کاور"),
                               upload_to='images/',
                               height_field=None,
@@ -57,6 +54,20 @@ class Category(Base):
 #  _______      _____________
 
 
+class OtherCategory(Base):
+    class Meta:
+        verbose_name = _("دسته بندی مناسبتی")
+        verbose_name_plural = _("مناسبت ها")
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("", args=[self.slug])
+
+#  _______      _____________
+
+
 class Image(models.Model):
     image = models.ImageField(_("عکس"), upload_to='images/')
 
@@ -80,7 +91,7 @@ special_features = (
 )
 
 
-class TypesFeature(models.Model):
+class ProductFeature(models.Model):
     feature_key = models.CharField(_("مشخصات"), max_length=80, choices=special_features)
     feature_value = models.CharField(_("مقدار"), max_length=250)
 
@@ -98,6 +109,8 @@ class TypesFeature(models.Model):
 class Product(Base):
     category = models.ManyToManyField(Category,
                                       verbose_name=_("دسته بندی ها"))
+    other_category = models.ManyToManyField(OtherCategory,
+                                            verbose_name=_("مناسبت ها"))
     brand = models.ForeignKey(Brand,
                               on_delete=models.CASCADE,
                               related_name='product_brand',
@@ -105,7 +118,7 @@ class Product(Base):
     images = models.ManyToManyField(Image,
                                     verbose_name=_("عکس‌ها"),
                                     blank=True)
-    features = models.ManyToManyField('TypesFeature',
+    features = models.ManyToManyField('ProductFeature',
                                       verbose_name=_("جزییات"),
                                       related_name='product_features')
     descriptions = models.TextField(_('توضیح اجمالی محصول'), max_length=300)
@@ -129,12 +142,14 @@ class ProductObject(models.Model):
     product = models.ForeignKey(Product,
                                 verbose_name=_("محصول"),
                                 on_delete=models.CASCADE)
-    features = models.ManyToManyField(TypesFeature,
+    features = models.ManyToManyField(ProductFeature,
                                       verbose_name=_("ویژگی های کالا"))
 
     stock = models.IntegerField(_("موجودی کالا"), default=1)
     price = models.IntegerField(_("قیمت کالا"))
     discount = models.IntegerField(_("تخفیف کالا"), default=0)
+    sold = models.IntegerField(_("فروش رفته"), default=0)
+    users_recommend = models.IntegerField(_("پیشنهاد خریداران"), default=0)
     description = models.TextField(_('توضیح کالا'), max_length=100)
     available = models.BooleanField(_("در دسترس"))
     created = models.DateTimeField(
@@ -143,6 +158,9 @@ class ProductObject(models.Model):
     class Meta:
         verbose_name = _("کالا")
         verbose_name_plural = _("کالا ها")
+
+    def count(self):
+        pass
 
     def __str__(self):
         return str(self.product)

@@ -13,7 +13,7 @@ class ProductCategoryView(ListView):
     template_name = 'home/category-search.html'
 
     def get(self, request, *args, **kwargs):
-        self.category = kwargs['category_id']
+        self.category = kwargs['category_slug']
         self.filtered_by = {}
 
         pattern = re.compile(r'[^a-zA-Z\s]')
@@ -24,14 +24,11 @@ class ProductCategoryView(ListView):
 
     def get_queryset(self):
 
-        self.result = ProductObject.objects.filter(available=True).order_by('-created')
+        self.result = ProductObject.objects.filter(available=True, product__category__slug=self.category).order_by('-created')
 
         for key, value in self.filtered_by.items():
             if key == 'brand':
                 self.result = self.result.filter(product__brand__title=value)
-
-            # if key == 'exist' and value == 'True': self.queryset.filter(stock__gte=1)
-            # if key == 'by_popular': self.queryset.filter(recomended__range=6)
 
         return self.result
 
