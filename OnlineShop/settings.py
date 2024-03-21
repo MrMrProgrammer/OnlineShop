@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'BaseApp',
+    'Category',
+    'ProductObject',
 
     'widget_tweaks',
 ]
@@ -70,7 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'BaseApp.custom_context_processors.category_query',
+                'Category.custom_context_processors.category_query',
             ],
         },
     },
