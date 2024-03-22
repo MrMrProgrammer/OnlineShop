@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from .models import Base, Product, Category, OtherCategory, Image, Brand, ProductFeature, ProductObject
-from django import forms
 
+from .models import (Product, Image, ProductFeature)
 
 admin.site.site_header = 'فروشگاه اینترنتی'
 
@@ -23,16 +22,20 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('image_tag',)  # اضافه کردن image_tag به readonly_fields
 
     fieldsets = (
-        (None, {'fields': ('title', 'slug', 'image', 'images', 'descriptions')}),  # حذف image_tag از اینجا
+        # حذف image_tag از اینجا
+        (None, {'fields': ('title', 'slug',
+                           'image', 'images', 'descriptions')}),
         (_('متعلق به:'), {'fields': ('category', 'brand',)}),
         (_('نمایش عمومی:'), {'fields': ('public',)}),
     )
 
     def image_tag(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="width: 45px; height:45px;" />', obj.image.url)
+            return format_html(
+                '<img src="{}"style="width:45px;height:45px;"/>', obj.image.url
+            )
         return "-"
-    
+
     image_tag.short_description = _('Image')
 
     def make_public(self, request, queryset):
@@ -48,37 +51,6 @@ class ProductAdmin(admin.ModelAdmin):
             product.pk = None
             product.save()
     duplicate_product.short_description = _('کپی')
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'parent', 'image_tag')
-
-    search_fields = ('title', )
-
-    list_filter = ('title', 'parent')
-
-    prepopulated_fields = {'slug': ('title',)}
-
-    actions = ['duplicate_category']
-
-    fieldsets = (
-        (_('دسته‌بندی ها:'), {'fields': ('parent', )}),
-        (('عنوان'), {'fields': ('title', 'slug', 'image',)}),
-    )
-
-    def image_tag(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: \
-                45px; height:45px;" />', obj.image.url)
-        return "-"
-    image_tag.short_description = _('Image')
-
-    def duplicate_category(self, request, queryset):
-        for category in queryset:
-            category.pk = None
-            category.save()
-    duplicate_category.short_description = _('کپی')
 
 
 @admin.register(Image)
@@ -104,77 +76,13 @@ class ImageAdmin(admin.ModelAdmin):
         return _("No Image")
     image_file.short_description = _('Image File Name')
 
-
-# get_cat = OtherCategory.objects.all()
-# ALL_OTHER_CATEGORIES = [i.title for i in zip(get_cat, get_cat)]
-# print(get_cat)
-# print(ALL_OTHER_CATEGORIES)
-#
-#
-# class ChooseCatForm(forms.Form):
-#     choice = forms.ChoiceField(label='all categories', choices=ALL_OTHER_CATEGORIES)
-#
-#
-# def add_to_other_categories(modeladmin, request, queryset):
-#     form = ChooseCatForm(request.POST)
-#     if form.is_valid():
-#         form_choice = form.cleaned_data['choice']
-#         filter_cat = get_cat.filter(title=form_choice)
-#         for obj in queryset:
-#             print(obj)
-#             obj.product.other_category.add(filter_cat)
-#             obj.save()
-
-
-@admin.register(ProductObject)
-class ProductObjectAdmin(admin.ModelAdmin):
-    list_display = ('product', 'stock', 'price',
-                    'discount', 'created', 'available')
-    
-    list_filter = ('available', 'created', 'product')
-
-    search_fields = ('product__title', )
-
-    ordering = ('-created',)
-
-    # actions = (add_to_other_categories, )
-
-    fieldsets = (
-        (None, {
-            'fields': ('product', 'features', 'description')
-        }),
-        (_('Inventory'), {
-            'fields': ('stock', 'available'),
-        }),
-        (_('Pricing'), {
-            'fields': ('price', 'discount'),
-        }),
-    )
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('features')
+    # def get_queryset(self, request):
+    #     return super().get_queryset(request).prefetch_related('features')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "product":
             kwargs["queryset"] = Product.objects.filter(public=True)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-
-@admin.register(Brand)
-class BrandAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
-
-    fieldsets = (
-        (None, {'fields': ('title', 'image', 'slug')}),
-    )
-
-    list_display = ('title', 'image_tag')
-
-    def image_tag(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: \
-                45px; height:45px;" />', obj.image.url)
-        return "-"
-    image_tag.short_description = _('Image')
 
 admin.site.register(ProductFeature, )
