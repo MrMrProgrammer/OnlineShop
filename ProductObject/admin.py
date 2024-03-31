@@ -2,9 +2,9 @@ from django.contrib import admin
 from django.db.models import (F, FloatField, Sum, ExpressionWrapper)
 from django.utils.translation import gettext_lazy as _
 
-from .models import (ProductObject, Promotion)
-# Register your models here.
+from .models import (ProductObject, Promotion, Wishlist)
 
+admin.site.register(Wishlist)
 
 @admin.register(ProductObject)
 class ProductObjectAdmin(admin.ModelAdmin):
