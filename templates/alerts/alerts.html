@@ -14,7 +14,6 @@
         setTimeout(function(){
             $('.message-container').fadeOut(fadeOutDuration, function() {
                 // بعد از محو شدن پیام‌ها، کاربر را به صفحه‌ی login_page منتقل کنید.
-                window.location.href = "{% url 'account:login_page' %}";
             });
         }, displayDuration);
     </script>

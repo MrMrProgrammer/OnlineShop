@@ -1,5 +1,3 @@
-from django import forms
-from django.db import IntegrityError
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -9,17 +7,18 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
 
-from .forms import Registration_form
+from .forms import RegistrationForm
 from .models import Account
+
+import requests
 
 # Create your views here.
 
 
 def register(request):
     if request.method == 'POST':
-        form = Registration_form(request.POST)
+        form = RegistrationForm(request.POST)
         # user valid
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -28,7 +27,7 @@ def register(request):
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
             password = form.cleaned_data['password']
-            confirm_password = form.cleaned_data['confirm_password']
+            # confirm_password = form.cleaned_data['confirm_password']
 
             user = Account.objects.create_user(
                 username=username,
@@ -43,23 +42,24 @@ def register(request):
             # user activision
             curent_site = get_current_site(request)
             mail_subject = 'لطفا اکانتتان را فعال کنید .'
-            message = render_to_string('accounts/account_verification_email.html', {
-                'user': user,
-                'domain': curent_site,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-            })
+            message = render_to_string(
+                'accounts/account_verification_email.html', {
+                    'user': user,
+                    'domain': curent_site,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
 
-            # messages.success(request, 'اکانت با موفقیت ساخته شد لطفا ایمیلتان را تایید کنید ! .')
-            return redirect('/accounts/login/?command-verification&email='+email)
+            return redirect(
+                '/accounts/login/?command-verification&email='+email)
         else:
             # Form is not valid
             return render(request, 'accounts/register.html', {'form': form})
     else:
-        form = Registration_form()
+        form = RegistrationForm()
 
     return render(request, 'accounts/register.html', {'form': form})
 
@@ -74,7 +74,16 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             # messages.success(request , 'شما وارد شدید .')
-            return redirect(request, 'account:profile_page')
+            url = request.META.get('HTTP_REFERER')
+            try:
+                query = requests.utils.urlparse(url).query
+                params = dict(x.split('=') for x in query.split('&'))
+                if 'next' in params:
+                    nextPage = params['next']
+                    return redirect(nextPage)
+            except ValueError:
+                return redirect('dashboard:profile_page')
+
         else:
             messages.error(request, 'رمز عبور خود را بازنشانی کنید .')
             return redirect('account:login_page')
@@ -106,11 +115,6 @@ def logout(request):
     return redirect('account:login_page')
 
 
-@login_required(login_url='account:login_page')
-def profile(request):
-    return render(request, 'accounts/profile.html')
-
-
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -120,7 +124,7 @@ def forgot_password(request):
 
             # reset password email
             curent_site = get_current_site(request)
-            mail_subject = 'لطفا اکانتتان را تایید کنید برای تغییر رمز عبورتان .'
+            mail_subject = 'لطفا اکانتتونو تایید کنید برای تغییر رمز عبورتان.'
             message = render_to_string('accounts/reset_password_email.html', {
                 'user': user,
                 'domain': curent_site,

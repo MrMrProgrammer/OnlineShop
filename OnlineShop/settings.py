@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'Category',
     'ProductObject',
     'reviews',
+    'dashboard',
+    'carts',
+    'orders',
 
     'widget_tweaks',
 ]
