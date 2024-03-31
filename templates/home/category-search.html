@@ -71,21 +71,36 @@
                         </div>
                     </div>
                     <aside class="sidebar-page col-12 col-sm-12 col-md-4 col-lg-3 ">
+                        
+                        
+                        
+                    <form action="" >
+                        
+                            
+                            
                         <div class="box">
+                            
                             <header class="card-header">
                                 <h3 class="card-title"><span class="space-right-10">رنگ</span></h3>
                             </header>
                             <div class="box-content">
                                 <div class="collapse show">
+
+
+
+
                                     <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
+                                            <input type="checkbox" id="agree" name="color" value="مشکی">
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> مشکی</label>
                                         <span class="color_pro_sel" style=" background-color: #000;"></span>
                                     </div>
-                                    <div class="form-account-agree">
+
+
+
+                                    {% comment %} <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
                                             <input type="checkbox" id="agree">
                                             <span class="checkbox-check"></span>
@@ -109,9 +124,9 @@
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> آبی</label>
-                                        <span class="color_pro_sel" style=" background-color: #0000ff;"></span>
+                                        <span class="color_pro_sel" style=" background-color: #0000ff;"></span> 
 
-                                    </div>
+                                    </div>{% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -136,7 +151,7 @@
                                    {% for brand in brands %}
                                         <div class="form-account-agree">
                                             <label class="checkbox-form checkbox-primary">
-                                                <input type="checkbox" id="agree">
+                                                <input type="checkbox" id="agree" name='brand' value="{{ brand}}">
                                                 <span class="checkbox-check"></span>
                                             </label>
                                             <label for="agree">{{ brand }}</label>
@@ -228,7 +243,7 @@
 {#                            </div>#}
 {#                        </div>#}
                       
-                        <div class="box">
+                        {% comment %} <div class="box">
                             <div class="box-content">
                                 <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
                                 <label for="">موجود در انبار مسای</label>
@@ -239,7 +254,22 @@
                                 <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
                                 <label for="">ارسال فوری</label>
                             </div>
+                        </div> {% endcomment %}
+
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال
+                                فیلتر</button>
+                            <a href="{% url 'p_objects:search' %}"
+                                class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
                         </div>
+
+
+
+
+                    </form>
+
+
                     </aside>
                     <div class="col-12 col-sm-12 col-md-8 col-lg-9">
                         <div class="listing default ">
@@ -302,7 +332,7 @@
                                                             <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
                                                         </span>
                                                     </div>
-                                                    <a class="product-box-img" href="{% url 'home:detail' p_object.pk %}">
+                                                    <a class="product-box-img" href="{% url 'p_objects:detail' p_object.pk %}">
                                                         <img src="{{ p_object.product.image.url }}" alt="">
                                                         <ul>
 {#                                                            <li class="color_pro" style="background-color: black;top: 7px;"></li>#}
@@ -311,7 +341,7 @@
                                                     <div class="product-box-content">
                                                         <div class="product-box-content-row">
                                                             <div class="product_title">
-                                                                <a href="{% url 'home:detail' p_object.pk %}">
+                                                                <a href="{% url 'p_objects:detail' p_object.pk %}">
                                                                     {{ p_object.product.title }}
                                                                 </a>
                                                             </div>
@@ -536,6 +566,55 @@
                                 </div>
                             </div>
                             <!-- -->
+
+
+
+
+
+<!--paginations-->
+{% if is_paginated %}
+
+<div class="row">
+  <div class="col-lg-12">
+    <ul class="pagination">
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+          <i class="fas fa-long-arrow-alt-right"></i></a>
+      </li>
+      {% endif %}
+
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+        {{ page_obj.paginator.num_pages }}</a></li>
+
+      <li class="page-item">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</li>
+
+      <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+          <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+      </li>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+{% endif %}
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>

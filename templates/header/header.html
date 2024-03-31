@@ -1,6 +1,19 @@
 {% load static %}
 
 
+
+{% if messages %}
+
+    {% for msg in messages %}
+        <p class="alert alert-{{ msg.tags }}"> {{ msg }} </p>
+    {% endfor %}
+
+{% endif %}
+
+
+
+
+
         <!--start pc header -->
         <header class="Masai-header default">
             <div class="container-fluid">
@@ -16,10 +29,14 @@
 
                     <div class="col-lg-8 col-md-5 col-sm-8 col-7">
                         <div class="search-area default">
-                            <form action="#" class="search">
-                                <input type="text" placeholder="جستجو">
+
+                            <form class="search" method="GET" action="{% url 'p_objects:search' %}" >
+
+                                <input name="keyword" type="text" placeholder="جستجو">
                                 <button type="submit"><img src="{% static 'img/search.png' %}" alt=""></button>
+
                             </form>
+
                         </div>
                     </div>
 
@@ -122,13 +139,13 @@
                                 <li class="child_mno-drobdown">
 
 
-                                    <a href="{% url 'home:filter' category.slug %}" class="run">{{ category.title }}</a>
+                                    <a href="{% url 'p_objects:filter' category.slug %}" class="run">{{ category.title }}</a>
 
 
                                     <div class="mega_meno">
                                         <ul class="list_drobdown--item">
                                             <li class="list_drobdown--items border_left--red">
-                                                <a href="{% url 'home:filter' category.slug %}"
+                                                <a href="{% url 'p_objects:filter' category.slug %}"
                                                    class="list__drobdown--link texr_header block_block">
                                                     همه محصولات موبایل
                                                 </a>
@@ -224,7 +241,7 @@
                                             </li>
                                             {% for item in sub_category %}
                                                     <li class="list_drobdown--items">
-                                                        <a href="{% url 'home:filter' item.slug %}" class="list__drobdown--link">{{ item.title }} </a>
+                                                        <a href="{% url 'p_objects:filter' item.slug %}" class="list__drobdown--link">{{ item.title }} </a>
                                                     </li>
                                             {% endfor %}
 
@@ -244,7 +261,7 @@
                                             </li>
                                             {% for brand in brands|slice:":5" %}
                                                 <li class="list_drobdown--items">
-                                                    <a href="{% url 'home:filter' category.slug %}?brand={{ brand.title }}" class="list__drobdown--link">{{ brand.title }}</a>
+                                                    <a href="{% url 'p_objects:filter' category.slug %}?brand={{ brand.title }}" class="list__drobdown--link">{{ brand.title }}</a>
                                                 </li>
                                             {% endfor %}
 

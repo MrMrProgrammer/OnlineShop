@@ -54,7 +54,7 @@
                                 </div>
                                 <ul class="gallery-options">
                                     <li>
-                                        <button class="add-favorites favorites2"><i class="fa fa-heart"></i></button>
+                                        <a href="{% url 'p_objects:wishlist' product_object.id %}"><button class="add-favorites favorites2"><i class="fa fa-heart"></i></button></a>
                                     </li>
                                     <li>
                                         <button class="favorites2" data-toggle="modal" data-target="#myModal"><i class="fa fa-share-alt"></i></button>
@@ -76,7 +76,7 @@
                                                              <p>
                                                                  برای کپی آدرس در کادر زیر دابل کلیک کنید
                                                              </p>
-                                                            <p class="right-side-header shareurlvalue" title="کپی بعد دوبار کلیک" id="text" onclick="copyElementText(this.id)">http://www.mysite.com/single-product.html</p>
+                                                            <p class="right-side-header shareurlvalue" title="کپی بعد دوبار کلیک" id="text" onclick="copyElementText(this.id)"></p>
 
                                                         </div>
                                                     </div>
@@ -104,6 +104,7 @@
                                                     {% endif %}
                                                 {% endfor %}
                                             </ul>
+                                            
                                         </div>
 {#                                        <div class="col-6">#}
 {#                                            <ul class="list-group space-15">#}
@@ -273,32 +274,68 @@
                                         </div>
                                         <div class="tab-pane" id="comments" role="tabpanel" aria-expanded="false">
 
+
+
+
+
+
+                                            <div class="tab-pane form-comment" id="comments_questions" role="tabpanel" aria-expanded="false">
+                                                <header class="card-header">
+                                                    <h3 class="card-title"><span>ارسال نظر  </span></h3>
+                                                </header>
+    
+                                                    <form method="post" action="" class="comment" >
+                                                        {% csrf_token %}
+                                                        
+                                                        <input type="number" name="rate" value="0" required id="id_rate">
+                 
+                                                        <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4" name="description" required id="id_description"></textarea>
+                                                        
+                                                        <button type="submit" class="btn btn-main-masai">ارسال برای تایید</button>
+                                                    </form>
+    
+                                            </div>
+
+
+
+
+
                                                 <header class="card-header">
                                                     <h3 class="card-title"><span>دیدگاه های دیگر کاربران</span></h3>
                                                 </header>
                                                 <div class="comments_form default">
                                                     <ol class="comment-list">
                                                         <!-- #comment-## -->
+
+
+                                                        {{product_object.avg_rate}}میانگین امتیازات 
+
+
+
+                                                            {% for review in reviews %}
                                                         <li>
                                                             <div class="comment-body">
                                                                 <div class="comment-author">
-                                                                    <img alt="" src="assets/img/profile/1.png" class="avatar"><span class="star4">4.3</span><div class="text-h5">عالی وشیک</div>
+                                                                    <span class="{% if review.rate >= 4 %}star4{% else %}star3{% endif %}">{{ review.rate }}</span><div class="text-h5"> {{ review.user.first_name }} </div>
                                                                 </div>
 
-                                                                <p>محصول بسیار خوبی است. صفحه‌نمایش با کیفیت فوق‌العاده، دوربین‌های با کیفیت و روانی کارکرد دستگاه همگی از ویژگی‌های مثبت این محصول هستند.</p>
+                                                                <p> {{ review.description }} </p>
                                                               <ul class="commentul">
                                                                   <li>
-                                                                      25 اردیبهشت 1402
+                                                                      {{ review.created_date }}
 
 
                                                                   </li>
                                                                   <li>
-                                                                      رضا صبوری
+                                                                      {{ review.user.first_name }}
                                                                   </li>
                                                               </ul>
                                                             </div>
                                                         </li>
-                                                        <li>
+
+                                                        {% endfor%}
+                                                        
+                                                        {% comment %} <li>
                                                             <div class="comment-body">
                                                                 <div class="comment-author">
                                                                     <img alt="" src="assets/img/profile/2.png" class="avatar"><span class="star3">3.2</span><div class="text-h5">جنس ضعیف</div>
@@ -318,7 +355,9 @@
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                        </li>
+                                                        </li> {% endcomment %}
+
+
                                                     </ol>
                                                 </div>
 
@@ -328,7 +367,7 @@
                                                 <h3 class="card-title"><span>ارسال نظر و پرسش  </span></h3>
                                             </header>
 
-                                                <form action="#" class="comment">
+                                                <form action="#" class="comment" metho>
                                                     <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4"></textarea>
                                                     <button class="btn btn-main-masai">ارسال برای تایید</button>
                                                 </form>

@@ -21,12 +21,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include(("BaseApp.urls", 'home'), namespace='home')),
-
     path('admin/', admin.site.urls),
-
     path('accounts/', include("accounts.urls")),
-    path('category/', include("ProductObject.urls")),
+    path('', include("ProductObject.urls")),
+    path('reviews/', include('reviews.urls')),
 
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

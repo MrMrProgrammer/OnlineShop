@@ -1,12 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
 from Category.models import Category, Brand, Base
-#  _______      _____________
-
-
-#  _______      _____________
 
 
 class Image(models.Model):
@@ -15,8 +10,6 @@ class Image(models.Model):
     class Meta:
         verbose_name = _("عکس")
         verbose_name_plural = _("عکس‌ها")
-
-#  _______      _____________
 
 
 special_features = (
@@ -44,8 +37,6 @@ class ProductFeature(models.Model):
 
     def __str__(self):
         return f'{self.feature_key} - {self.feature_value}'
-
-#  _______      _____________
 
 
 class Product(Base):
