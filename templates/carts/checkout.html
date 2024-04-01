@@ -80,9 +80,9 @@
                                     <td class="align-middle">
                                         <img src="{{cart_item.product.image.url}}" alt="" style="width: 50px;" /> 
                                         <figcaption class='info'>
-                                            <a href='{{ cart_item.product.get_url }}' class='text-muted small'>
+                                            {% comment %} <a href='{{ cart_item.product.get_url }}' class='text-muted small'>
                                                 <strong class="colorful">{{cart_item.product.title}}</strong>
-                                            </a>
+                                            </a> {% endcomment %}
                                             <p class='text-muted small'>
                                                 {% if cart_item.variations.all %}
                                                     {% for item in cart_item.variations.all %}
@@ -104,7 +104,11 @@
                         </tbody>
                     </table>
                     <button type='submit' class="btn btn-block btn-primary font-weight-bold my-3 py-3">ادامه به صفحه پرداخت</button>
-                    <a href="{% url 'store' %}" class="btn btn-block btn-success font-weight-bold my-3 py-3">ادامه خرید</a>
+                    {% if cart_item.product.pk %}
+                        <a href="{% url 'p_objects:detail' cart_item.product.pk %}" class="btn btn-block btn-success font-weight-bold my-3 py-3">ادامه خرید</a>
+                    {% else %}
+                        <!-- نمایش یک پیام خطا یا لینک جایگزین، اگر محصولی وجود ندارد -->
+                    {% endif %}
                 </div>
             </div>
         </form>

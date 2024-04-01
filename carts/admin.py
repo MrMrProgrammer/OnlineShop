@@ -22,13 +22,20 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ['product', 'cart',  'sub_total']
+    list_display = ['product', 'cart', 'sub_total']
     readonly_fields = ['sub_total']
     list_filter = ['cart', 'product']
     search_fields = ['product__title', 'cart__user__full_name']
 
     def sub_total(self, obj):
-        return obj.sub_total()
+        total_price = 0
+        if obj.product_object.exists():
+            for product_obj in obj.product_object.all():
+                total_price += product_obj.price
+        else:
+            total_price = obj.product.productobject_set.first().price
+        return total_price * obj.quantity
+
     sub_total.short_description = 'قیمت کل'
 
     def save_model(self, request, obj, form, change):

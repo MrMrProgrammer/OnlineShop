@@ -1,9 +1,13 @@
 {% extends "base/index.html" %}
 {% load static %}
 {% block main %}
-
+<style>
+	.top-section {
+		padding-top: 10%;
+	}
+</style>
     <!-- Cart Start -->
-    <div class="container-fluid">
+    <div class="container-fluid top-section">
 
       {% if not cart_items %}
 
@@ -48,24 +52,23 @@
                         </p>
                       </figcaption>
                     </td>
-                    <td class="align-middle">${{ cart_item.product.price }}</td>
+                    <td class="align-middle">${{ cart_item.product_object.first.price }}</td>
                     <td class="align-middle">
-                      <div class="col"> 
-                        <div class="input-group mx-auto" style="width: 100px;" >
-                            <div class="input-group-btn">
-                            <a href="{% url 'cart:remove_from_cart_page' cart_item.product.id cart_item.id %}" class="btn btn-sm btn-primary btn-minus" type="button"> <i class="fa fa-minus"></i> </a>
-                            </div>
-                            <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{ cart_item.quantity }}">
-                            <div class="input-group-btn">
-                                <form action="{% url 'cart:add_to_cart_page' cart_item.product.id  %}" method='POST'>
-                                    {% csrf_token %}
-                                    {% for item in cart_item.variations.all  %}
-                                        <input type='hidden' name="{{ item.variation_category |  lower }}" value="{{ item.variation_value | capfirst }}">
-                                    {% endfor %}
-                                    <button class="btn btn-sm btn-primary btn-plus" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
-                                </form>
-                            </div>
-                        </div>
+                      <div class="d-flex justify-content-center align-items-center">
+                        <a href="{% url 'cart:remove_from_cart_page' cart_item.product.id cart_item.id %}" class="btn btn-sm btn-danger mr-2">
+                          <i class="fa fa-minus"></i>
+                        </a>
+                        <input type="text" class="form-control form-control-sm bg-light border-0 text-center mx-2" style="width: 60px;" value="{{ cart_item.quantity }}" readonly>
+                        <form action="{% url 'cart:add_to_cart_page' cart_item.product.id  %}" method='POST' class="d-inline-block">
+                          {% csrf_token %}
+                          {% for item in cart_item.variations.all  %}
+                            <input type='hidden' name="{{ item.variation_category |  lower }}" value="{{ item.variation_value | capfirst }}">
+                          {% endfor %}
+                          <button class="btn btn-sm btn-success" type="submit" id="button-minus">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                        </form>
+                      </div>
                     </td>
                     <td class="align-middle">${{ cart_item.sub_total }}</td>
                     <td class="align-middle">

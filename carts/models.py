@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from BaseApp.models import Product, ProductFeature
 from ProductObject.models import ProductObject
 
@@ -19,12 +20,12 @@ class Cart(models.Model):
 
     def total_price(self):
         total = 0
-        for item in self.cartitem_set.all():
-            total += item.sub_total()
+        for item in self.items.all():
+            total += item.sub_total
         return total
 
     def total_items(self):
-        return self.cartitem_set.count()
+        return self.items.count()
 
 
 class CartItem(models.Model):
@@ -52,6 +53,10 @@ class CartItem(models.Model):
 
     @property
     def sub_total(self):
+        total_price = 0
         if self.product_object.exists():
-            return sum(obj.price for obj in self.product_object.all()) * self.quantity
-        return 0
+            for product_obj in self.product_object.all():
+                total_price += product_obj.price
+        else:
+            total_price = self.product.productobject_set.first().price
+        return total_price * self.quantity

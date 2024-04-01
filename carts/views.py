@@ -5,6 +5,7 @@ from django.views.generic.base import View
 from django.core.exceptions import ObjectDoesNotExist
 
 from BaseApp.models import Product, ProductFeature
+from ProductObject.models import ProductObject
 
 from .models import Cart, CartItem
 
@@ -12,13 +13,6 @@ from .models import Cart, CartItem
 
 
 # private function
-def _cart_id(request):
-    cart = request.session.session_key
-    if not cart:
-        cart = request.session.create()
-    return cart
-
-
 class AddToCartView(LoginRequiredMixin, View):
     def get_cart(self, request):
         try:
@@ -36,18 +30,33 @@ class AddToCartView(LoginRequiredMixin, View):
             product=product
         )
 
-        if created:
-            cart_item.product_object_id = product.productobject_set
-        else:
-            cart_item.product_object_id = product.productobject_set
+        # Get or create the ProductObject instance
+        product_object, _ = ProductObject.objects.get_or_create(
+            product=product,
+            defaults={
+                'price': product.productobject_set.first().price,
+                'stock': product.productobject_set.first().stock,
+                'available': product.productobject_set.first().available,
+            }
+        )
 
-        # بررسی می‌کنیم که آیا فیلد `product_feature` در درخواست وجود دارد
+        # Add the ProductObject to the CartItem
+        cart_item.product_object.add(product_object)
+
+        # If 'product_feature' is in the request, add the corresponding features
         if 'product_feature' in request.POST:
             product_feature = ProductFeature.objects.filter(
                 id__in=request.POST.getlist('product_feature'))
             cart_item.product_feature.set(product_feature)
 
+        # Increment the quantity
+        cart_item.quantity += 1
         cart_item.save()
+
+        # Update the sold count in the ProductObject
+        product_object.sold += 1
+        product_object.save()
+
         return redirect('cart:cart_page')
 
 
@@ -113,11 +122,10 @@ class CartView(View):
         total_quantity = 0
         if cart_items:
             for cart_item in cart_items:
-                total += sum(item.product_object.all().count()
-                             for item in [cart_item])
+                total += cart_item.sub_total
             tax = 0.02 * total
             grand_total = total + tax
-            total_quantity = total
+            total_quantity = sum(item.quantity for item in cart_items)
 
         context = {
             'total': total,
@@ -130,7 +138,8 @@ class CartView(View):
 
 
 class CheckoutView(LoginRequiredMixin, View):
-    login_url = 'account:login_page'  # این جایگزین دکوراتور login_required می‌شود
+    # این جایگزین دکوراتور login_required می‌شود
+    login_url = 'account:login_page'
 
     def get(self, request):
         total = 0
