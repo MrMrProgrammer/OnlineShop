@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
+from django.utils.crypto import get_random_string
 
 from .models import (Product, Image, ProductFeature)
 
@@ -48,7 +50,13 @@ class ProductAdmin(admin.ModelAdmin):
 
     def duplicate_product(self, request, queryset):
         for product in queryset:
-            product.pk = None
+            original_title = product.title
+            product.pk = None  # Reset the primary key to create a new object
+            # Add a random string or a version number to the title to make it unique
+            product.title = f"{
+                original_title} (کپی {get_random_string(length=4)})"
+            # Make sure the slug is also unique
+            product.slug = slugify(product.title)
             product.save()
     duplicate_product.short_description = _('کپی')
 

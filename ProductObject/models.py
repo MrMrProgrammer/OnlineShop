@@ -16,7 +16,8 @@ class ProductObject(models.Model):
     price = models.IntegerField(_("قیمت کالا"))
     description = models.TextField(_('توضیح کالا'), max_length=100)
     available = models.BooleanField(_("در دسترس"))
-    created = models.DateTimeField(_("زمان بارگزاری"), auto_now=False, auto_now_add=True)
+    created = models.DateTimeField(
+        _("زمان بارگزاری"), auto_now=False, auto_now_add=True)
 
     # فیلد جدید برای ثبت تعداد فروش‌ها
     sold = models.PositiveIntegerField(_('تعداد فروش کالا'), default=0)
@@ -46,12 +47,12 @@ class ProductObject(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(Account,on_delete=models.PROTECT)
-    product = models.ForeignKey(ProductObject,on_delete=models.CASCADE)
-        
+    user = models.ForeignKey(Account, on_delete=models.PROTECT)
+    product = models.ForeignKey(ProductObject, on_delete=models.CASCADE)
+
     # def get_absolute_url(self):
     #     return reverse('p_objects:detail', args=[self.product.id, ])
-        
+
     # def __str__(self):
     #     return self.product.title
 
@@ -59,11 +60,13 @@ class Wishlist(models.Model):
 
 
 class Promotion(models.Model):
-    event_name = models.CharField(_("نام مناسبت"), max_length=255, null=True, blank=True,)
+    event_name = models.CharField(
+        _("نام مناسبت"), max_length=255, null=True, blank=True,)
     discount = models.IntegerField(_("تخفیف کالا"), default=0)
     start_date = models.DateTimeField(_('زمان شروع تخفیف'))
     end_date = models.DateTimeField(_('زمان پایان تخفیف'))
-    products = models.ManyToManyField(ProductObject, related_name='events', blank=True)
+    products = models.ManyToManyField(
+        ProductObject, related_name='events', blank=True)
 
     def is_active(self):
         return self.start_date <= timezone.now() <= self.end_date

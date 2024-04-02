@@ -65,4 +65,6 @@ class Product(Base):
         return self.title
 
     def get_url(self):
-        return reverse('products_detail', args=[self.Category.slug, self.slug])
+        if self.category.exists():
+            return reverse('home-page', args=[self.category.first().slug, self.slug])
+        return reverse('home-page', args=[self.slug])

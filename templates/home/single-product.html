@@ -87,9 +87,9 @@
                                 </div>
                                 <!-- Modal Core -->
                             </div>
-                            <div class="col-lg-7 col-md-6 col-sm-12 " >
-
-
+                            <form action="{% url 'cart:add_to_cart_page' product_object.id %}" method='POST' class="col-lg-7 h-auto mb-30">auto mb-30">
+                                {% csrf_token %}
+                                <div class="col-lg-7 col-md-6 col-sm-12 " >
                                     <h2 class="product-title ">
                                         <a href="#">   {{ product_object.title }}  </a>
                                     </h2>
@@ -106,14 +106,6 @@
                                             </ul>
                                             
                                         </div>
-{#                                        <div class="col-6">#}
-{#                                            <ul class="list-group space-15">#}
-{#                                                <li class="list-group-item"> نوع گوشی : دو گوشی</li>#}
-{#                                                <li class="list-group-item"> سیستم عامل : iOS 15</li>#}
-{#                                                <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>#}
-{##}
-{#                                            </ul>#}
-{#                                        </div>#}
                                         <div class="col-lg-12 col-md-12 col-sm-12 product_main_pr">
 
                                             <div class="time_pr">
@@ -124,7 +116,7 @@
                                                         <b>
                                                             <i class="fa fa-calendar" aria-hidden="true"></i>
 
-                                                           زمان ارسال محصول :
+                                                        زمان ارسال محصول :
                                                         </b>
                                                         از انبار مَسای کالا طی 2 روز کاری
                                                     </div>
@@ -167,17 +159,11 @@
 
                                                         </div>
                                                         <div class="col-12 timer-title text--center">
-
-                                                            <a href="#" class="btn btn-main-masai big_btn">افزودن به سبد</a>
+                                                                <button type='submit' class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> اضافه کردن به سبد خرید</button>
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
-
-
                                         </div>
                                         <div class="col-12">
                                             <p class="txt_note">
@@ -185,12 +171,9 @@
                                                 برای کالاهای گروه موبایل، امکان برگشت کالا به دلیل انصراف از خرید تنها در صورتی مورد قبول است که کالا بدون هیچگونه استفاده و با تمامی قطعات، متعلقات و بسته‌بندی‌های اولیه خود بازگردانده شود. لازم به ذکر است که برای هر کالای موبایل، ضمانت رجیستری صادر می‌شود. در صورت بروز اشکال در ضمانت رجیستری، پس از انقضای مدت ۳۰ روزه، کالا می‌تواند بازگردانده شود.
                                             </p>
                                         </div>
-
                                     </div>
-
-
-                            </div>
-
+                                </div>
+                            </form>
                         </div>
                     </article>
                 </div>
@@ -251,34 +234,10 @@
                                                         {% for key, value in product_features.items %}
                                                             <li class="list-group-item"> {{ key }} : {% for i in value %}{{ i }} {% endfor %}</li>
                                                         {% endfor %}
-
-{#                                                        <li class="list-group-item">رنگ: مشکی</li>#}
-{#                                                        <li class="list-group-item">بلوتوث:دارد</li>#}
-{#                                                        <li class="list-group-item"> رزولوشن عکس : 12 مگاپیکسل</li>#}
-{#                                                        <li class="list-group-item" > اندازه  : 6.1</li>#}
-{##}
-{#                                                            <li class="list-group-item">قابلیت : ضد آب</li>#}
-{#                                                            <li class="list-group-item"> نوع گوشی : دو گوشی</li>#}
-{#                                                            <li class="list-group-item"> سیستم عامل : iOS 15</li>#}
-{#                                                            <li class="list-group-item"> فناوری  : Super Retina XDR OLED</li>#}
-
-
                                                     </ul>
-
-
                                                 </div>
-
-
-
-
                                         </div>
                                         <div class="tab-pane" id="comments" role="tabpanel" aria-expanded="false">
-
-
-
-
-
-
                                             <div class="tab-pane form-comment" id="comments_questions" role="tabpanel" aria-expanded="false">
                                                 <header class="card-header">
                                                     <h3 class="card-title"><span>ارسال نظر  </span></h3>
