@@ -14,7 +14,7 @@ class ProductObject(models.Model):
 
     stock = models.IntegerField(_("موجودی کالا"), default=1)
     price = models.IntegerField(_("قیمت کالا"))
-    description = models.TextField(_('توضیح کالا'), max_length=100)
+    description = models.TextField(_('توضیح کوتاه در مورد کالا'), max_length=100)
     available = models.BooleanField(_("در دسترس"))
     created = models.DateTimeField(
         _("زمان بارگزاری"), auto_now=False, auto_now_add=True)
@@ -47,8 +47,12 @@ class ProductObject(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.PROTECT)
-    product = models.ForeignKey(ProductObject, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.PROTECT, verbose_name='کاربر')
+    product = models.ForeignKey(ProductObject, on_delete=models.CASCADE, verbose_name='کالا')
+
+    class Meta:
+        verbose_name = _("علاقه مندی ها")
+        verbose_name_plural = _("علاقه مندی ها")
 
     # def get_absolute_url(self):
     #     return reverse('p_objects:detail', args=[self.product.id, ])

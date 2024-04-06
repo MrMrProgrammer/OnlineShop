@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db.models import Avg
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 
 class ReviewStatusType(models.IntegerChoices):
@@ -13,20 +14,22 @@ class ReviewStatusType(models.IntegerChoices):
 
 
 class Review(models.Model):
-    user = models.ForeignKey('accounts.Account', on_delete=models.CASCADE)
+    user = models.ForeignKey('accounts.Account', on_delete=models.CASCADE,verbose_name='کاربر')
     product = models.ForeignKey(
-        'ProductObject.ProductObject', on_delete=models.CASCADE)
-    description = models.TextField()
-    rate = models.IntegerField(default=5, validators=[
+        'ProductObject.ProductObject', on_delete=models.CASCADE, verbose_name='کالا')
+    description = models.TextField(_('توضیحات'), )
+    rate = models.IntegerField(_('امتیاز'), default=5, validators=[
                                MinValueValidator(0), MaxValueValidator(5)])
-    status = models.IntegerField(
+    status = models.IntegerField(_('وضعیت'),
         choices=ReviewStatusType.choices,
         default=ReviewStatusType.pending.value)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(_('تاریخ ایجاد'), auto_now_add=True)
+    updated_date = models.DateTimeField(_('تاریخ آپدیت'), auto_now=True)
 
     class Meta:
         ordering = ["-created_date"]
+        verbose_name = _("نظر")
+        verbose_name_plural = _("نظرات")
 
     def __str__(self):
         return f"{self.user} - {self.product.id}"
