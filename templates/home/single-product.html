@@ -87,8 +87,12 @@
                                 </div>
                                 <!-- Modal Core -->
                             </div>
-                            <form action="{% url 'cart:add_to_cart_page' product_object.id %}" method='POST' class="col-lg-7 h-auto mb-30">auto mb-30">
-                                {% csrf_token %}
+                        
+                        
+                        
+                        
+                        
+                            
                                 <div class="col-lg-7 col-md-6 col-sm-12 " >
                                     <h2 class="product-title ">
                                         <a href="#">   {{ product_object.title }}  </a>
@@ -158,8 +162,9 @@
 
 
                                                         </div>
+                                                    
                                                         <div class="col-12 timer-title text--center">
-                                                                <button type='submit' class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> اضافه کردن به سبد خرید</button>
+                                                                <a href="{% url 'cart:add_to_cart_page' product_object.id %}"><button type='submit' class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> اضافه کردن به سبد خرید</button></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
                     </article>
                 </div>
