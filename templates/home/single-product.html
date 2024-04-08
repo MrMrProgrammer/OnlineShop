@@ -4,7 +4,15 @@
     {% block page-title %}مَسای شاپ{% endblock %}
 
 {% block main %}
-
+<style>
+    @media (min-width: 992px) {
+        .col-lg-7 {
+            -ms-flex: 0 0 58.333333%;
+            flex: 0 0 58.333333%;
+            max-width: 100% !important;
+        }
+    }
+</style>
     <main class="single-product default">
         <div class="container">
             <div class="row">
@@ -87,12 +95,8 @@
                                 </div>
                                 <!-- Modal Core -->
                             </div>
-                        
-                        
-                        
-                        
-                        
-                            
+                            <form action="{% url 'cart:add_to_cart_page' product_object.id %}" method='POST' class="col-lg-7 h-auto mb-30">
+                                {% csrf_token %}
                                 <div class="col-lg-7 col-md-6 col-sm-12 " >
                                     <h2 class="product-title ">
                                         <a href="#">   {{ product_object.title }}  </a>
@@ -162,9 +166,8 @@
 
 
                                                         </div>
-                                                    
                                                         <div class="col-12 timer-title text--center">
-                                                                <a href="{% url 'cart:add_to_cart_page' product_object.id %}"><button type='submit' class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> اضافه کردن به سبد خرید</button></a>
+                                                                <button type='submit' class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> اضافه کردن به سبد خرید</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -178,7 +181,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+                            </form>
                         </div>
                     </article>
                 </div>
@@ -225,8 +228,6 @@
                                                         </p>
                                                     </div>
                                                 </div>
-
-
                                         </div>
                                         <div class="tab-pane params" id="params" role="tabpanel" aria-expanded="false">
                                             <header class="card-header">
@@ -247,95 +248,53 @@
                                                 <header class="card-header">
                                                     <h3 class="card-title"><span>ارسال نظر  </span></h3>
                                                 </header>
-    
-                                                    <form method="post" action="" class="comment" >
-                                                        {% csrf_token %}
-                                                        
-                                                        <input type="number" name="rate" value="0" required id="id_rate">
-                 
-                                                        <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4" name="description" required id="id_description"></textarea>
-                                                        
-                                                        <button type="submit" class="btn btn-main-masai">ارسال برای تایید</button>
-                                                    </form>
-    
+                                                <form method="post" action="" class="comment" >
+                                                    {% csrf_token %}
+                                                    
+                                                    <input type="number" name="rate" value="0" required id="id_rate">
+                
+                                                    <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4" name="description" required id="id_description"></textarea>
+                                                    
+                                                    <button type="submit" class="btn btn-main-masai">ارسال برای تایید</button>
+                                                </form>
                                             </div>
-
-
-
-
-
                                                 <header class="card-header">
                                                     <h3 class="card-title"><span>دیدگاه های دیگر کاربران</span></h3>
                                                 </header>
                                                 <div class="comments_form default">
                                                     <ol class="comment-list">
                                                         <!-- #comment-## -->
-
-
                                                         {{product_object.avg_rate}}میانگین امتیازات 
-
-
-
-                                                            {% for review in reviews %}
-                                                        <li>
-                                                            <div class="comment-body">
-                                                                <div class="comment-author">
-                                                                    <span class="{% if review.rate >= 4 %}star4{% else %}star3{% endif %}">{{ review.rate }}</span><div class="text-h5"> {{ review.user.first_name }} </div>
+                                                        {% for review in reviews %}
+                                                            <li>
+                                                                <div class="comment-body">
+                                                                    <div class="comment-author">
+                                                                        <span class="{% if review.rate >= 4 %}star4{% else %}star3{% endif %}">{{ review.rate }}</span><div class="text-h5"> {{ review.user.first_name }} </div>
+                                                                    </div>
+                                                                    <p> {{ review.description }} </p>
+                                                                    <ul class="commentul">
+                                                                        <li>
+                                                                            {{ review.created_date }}
+                                                                        </li>
+                                                                        <li>
+                                                                            {{ review.user.first_name }}
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
-
-                                                                <p> {{ review.description }} </p>
-                                                              <ul class="commentul">
-                                                                  <li>
-                                                                      {{ review.created_date }}
-
-
-                                                                  </li>
-                                                                  <li>
-                                                                      {{ review.user.first_name }}
-                                                                  </li>
-                                                              </ul>
-                                                            </div>
-                                                        </li>
-
+                                                            </li>
                                                         {% endfor%}
-                                                        
-                                                        {% comment %} <li>
-                                                            <div class="comment-body">
-                                                                <div class="comment-author">
-                                                                    <img alt="" src="assets/img/profile/2.png" class="avatar"><span class="star3">3.2</span><div class="text-h5">جنس ضعیف</div>
-                                                                </div>
-
-                                                                <p>
-                                                                    اینقد قیمتش زیاد هست که نمیشه سمتش رفت، خریدم ولی پشیمونم، بنظر من نخرید، نوکیا 1100 از این بهتره، خیلی کار باهاش هم دشوار هست.
-                                                                </p>
-                                                                <ul class="commentul">
-                                                                    <li>
-                                                                        30 اردیبهشت 1402
-
-
-                                                                    </li>
-                                                                    <li>
-                                                                        محمود صفایی
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </li> {% endcomment %}
-
-
                                                     </ol>
                                                 </div>
-
+                                            </div>
                                         </div>
                                         <div class="tab-pane form-comment" id="comments_questions" role="tabpanel" aria-expanded="false">
                                             <header class="card-header">
                                                 <h3 class="card-title"><span>ارسال نظر و پرسش  </span></h3>
                                             </header>
-
-                                                <form action="#" class="comment" metho>
-                                                    <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4"></textarea>
-                                                    <button class="btn btn-main-masai">ارسال برای تایید</button>
-                                                </form>
-
+                                            <form action="#" class="comment" metho>
+                                                <textarea class="form-control" placeholder="متن نظر و پرسش" rows="4"></textarea>
+                                                <button class="btn btn-main-masai">ارسال برای تایید</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

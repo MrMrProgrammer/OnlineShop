@@ -19,7 +19,7 @@ class ProductCategoryView(ListView):
 
         self.slug = kwargs['category_slug'] or None
         self.filtered_by = {}
-        
+
         for k, v in request.GET.lists():
             self.filtered_by[k] = v
 
@@ -45,28 +45,37 @@ class ProductCategoryView(ListView):
                                                                Q(description__icontains=value[0]))
 
             if key == 'brand' and value[0]:
-                self.filter_result = self.filter_result.filter(product__brand__title__in=value)
+                self.filter_result = self.filter_result.filter(
+                    product__brand__title__in=value)
 
             if key == 'price-gte' and value[0]:
-                self.filter_result = self.filter_result.filter(price__gte=value[0] or 0)
+                self.filter_result = self.filter_result.filter(
+                    price__gte=value[0] or 0)
             if key == 'price-lte' and value[0]:
-                self.filter_result = self.filter_result.filter(price__lte=value[0] or 0)
+                self.filter_result = self.filter_result.filter(
+                    price__lte=value[0] or 0)
 
             if key == 'color' and value[0]:
-                self.filter_result = self.filter_result.filter(features__feature_value__in=value)
+                self.filter_result = self.filter_result.filter(
+                    features__feature_value__in=value)
 
             if key == 'stock' and value[0]:
                 if value[0] == 'true':
-                    self.filter_result = self.filter_result.filter(stock__gte=1)
+                    self.filter_result = self.filter_result.filter(
+                        stock__gte=1)
                 else:
-                    self.filter_result = self.filter_result.filter(stock__lte=0)
+                    self.filter_result = self.filter_result.filter(
+                        stock__lte=0)
 
             if key == 'order-by' and value[0]:
                 if value[0] == 'most-rate':
-                    self.filter_result = self.filter_result.filter(avg_rate__gte=3.7)
+                    self.filter_result = self.filter_result.filter(
+                        avg_rate__gte=3.7)
                 if value[0] == 'most-sold':
-                    avg_sold = self.filter_result.aggregate(avg_sold=Avg('sold'))['avg_sold']
-                    self.filter_result = self.filter_result.filter(sold__gte=avg_sold)
+                    avg_sold = self.filter_result.aggregate(
+                        avg_sold=Avg('sold'))['avg_sold']
+                    self.filter_result = self.filter_result.filter(
+                        sold__gte=avg_sold)
 
         return self.filter_result
 
@@ -76,7 +85,7 @@ class ProductCategoryView(ListView):
         context['product_objects'] = self.filter_result.order_by('-created')
 
         return context
-    
+
 
 class ProductDetailView(DetailView, CreateView):
     model = ProductObject
@@ -98,18 +107,19 @@ class ProductDetailView(DetailView, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviews'] = Review.objects.filter(product__id=self.get_object().id).filter(status=2).order_by('-created_date')
+        context['reviews'] = Review.objects.filter(
+            product__id=self.get_object().id).filter(status=2).order_by('-created_date')
 
         context['product_features'] = self.all_product_features
         return context
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.product = self.get_object()
         form.save()
 
         return super().form_valid(form)
-    
+
 
 class AddOrRemoveWishlistView(LoginRequiredMixin, View):
 
@@ -119,12 +129,14 @@ class AddOrRemoveWishlistView(LoginRequiredMixin, View):
         message = ""
         if product_id:
             try:
-                wishlist_item = Wishlist.objects.get(product__id=product_id, user=request.user)
+                wishlist_item = Wishlist.objects.get(
+                    product__id=product_id, user=request.user)
                 wishlist_item.delete()
                 message = "محصول از لیست علایق حذف شد"
                 return JsonResponse({"message": message})
-            
+
             except Wishlist.DoesNotExist:
-                Wishlist.objects.create(product_id=product_id, user=request.user)
+                Wishlist.objects.create(
+                    product_id=product_id, user=request.user)
                 message = "محصول به لیست علایق اضافه شد"
         return JsonResponse({"message": message})

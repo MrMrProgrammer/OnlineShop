@@ -15,58 +15,31 @@
                             </header>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_blank">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-1.png' %}" alt="" />
-                                                <b class="title-3 light-black">کالای دیجیتال</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-2.png' %}" alt="" />
-                                                <b class="title-3 light-black">مودم</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_blank">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-3.png' %}" alt="" />
-                                                <b class="title-3 light-black">تبلت</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-4.png' %}" alt="" />
-                                                <b class="title-3 light-black">ماوس</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-5.png' %}" alt="" />
-                                                <b class="title-3 light-black">هندزفری</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-6.png' %}" alt="" />
-                                                <b class="title-3 light-black">ساعت هوشمند</b>
-                                            </a>
-
+                                    <style>
+                                        .category-title {
+                                            display: block;
+                                            text-align: center; 
+                                        }
+                                    </style>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            {% for category, sub_category in all_categories.items %}
+                                                <!-- هر دسته‌بندی را در یک ستون قرار دهید که 2 از 12 ستون را اشغال کند -->
+                                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4">
+                                                    <a href="#" target="_blank">
+                                                        <img class="img-responsive imgpad" src="{{category.image.url}}" alt="{{ category.title }}" />
+                                                        <!-- اضافه کردن کلاس جدید برای عنوان -->
+                                                        <b class="title-3 light-black category-title">{{ category.title }}</b>
+                                                    </a>
+                                                </div>
+                                                {% if forloop.counter|divisibleby:6 and not forloop.last %}
+                                                    <!-- پایان یک ردیف و شروع یک ردیف جدید پس از هر 6 دسته‌بندی -->
+                                                    </div><div class="row">
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                                 
                             </div>
                         </div>
                     </div>
@@ -194,17 +167,6 @@
                                  
                                 </div>
                             </div>
-                            
-                            
-{#                            <header class="card-header">#}
-{#                                <h3 class="card-title"><span class="space-right-10">قیمت</span></h3>#}
-{#                            </header>#}
-{#                            <div class="box-content space-40 space-right-25 space-left-25">#}
-{#                                <div id="slider">#}
-{#                                </div>#}
-{#                            </div>#}
-
-
                         <div class="box">
                             <header class="card-header">
                                 <h3 class="card-title"><span class="space-right-10">لیست برند ها</span></h3>
@@ -220,106 +182,9 @@
                                             <label for="agree">{{ brand }}</label>
                                         </div>
                                     {% endfor %}
-{#                                    #}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> اپل</label>#}
-{#                                        </div>#}
-{#                                    #}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> هواوی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> شیائومی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> سونی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> ایسوس</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> نوکیا</label>#}
-{#                                        </div>#}
                                 </div>
                             </div>
                         </div>
-                       
-{#                        <div class="box">#}
-{#                            <header class="card-header">#}
-{#                                <h3 class="card-title"><span class="space-right-10">سیستم عامل</span></h3>#}
-{#                            </header>#}
-{#                            <div class="box-content">#}
-{#                                <div class="collapse show">#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> اندروید</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> iOS</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> ویندوز فون</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> سایر</label>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-                      
-                        {% comment %} <div class="box">
-                            <div class="box-content">
-                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                                <label for="">موجود در انبار مسای</label>
-                            </div>
-                        </div>
-                        <div class="box">
-                            <div class="box-content">
-                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                                <label for="">ارسال فوری</label>
-                            </div>
-                        </div> {% endcomment %}
-
-
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success btn-transition mb-3">اعمال
                                 فیلتر</button>
@@ -335,45 +200,6 @@
 
                     </aside>
                     <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-{#                        <div class="listing default ">#}
-{#                            <div class="listing-header default marg_all0">#}
-{#                                <ul class="Search_list nav nav-tabs " role="tablist" >#}
-{#                                    <li>#}
-{#                                        <a class="active" data-toggle="tab" href="#suggestion" role="tab"#}
-{#                                           aria-expanded="false">پیشنهاد خریداران</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="?order-by=most-visited" role="tab" aria-expanded="false">پربازدیدترین</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="#delivery" role="tab" aria-expanded="true">سریع‌ترین ارسال</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="?order-by=most-sold" role="tab"#}
-{#                                           aria-expanded="false">‌بیشترین فروش‌</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="#price" role="tab"#}
-{#                                           aria-expanded="false">‌براساس قیمت</a>#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                                <div class="box_filter_search">#}
-{#                                    <ul class="filter_search">#}
-{#                                        {% if filtered_by %}#}
-{#                                            {% for key, value in filtered_by.items %}#}
-{#                                                <li>#}
-{#                                                    <i class="fa fa-times" aria-hidden="true"></i>#}
-{#                                                    <span>{{ key }} : {{ value }}</span>#}
-{#                                                </li>#}
-{#                                            {% endfor %}#}
-{#                                        {% endif %}#}
-{#                                    </ul>#}
-{#                                </div>#}
-{#                            </div>#}
-
-
-
-
                             <div class="tab-content default text-center">
                                 <div class="tab-pane active" id="suggestion" role="tabpanel" aria-expanded="true">
                                         <div class="row listing-items">
@@ -389,9 +215,6 @@
                                                             <i class="fa fa-search search_icon_search" aria-hidden="true"></i>
                                                             <a href="{% url 'p_objects:wishlist' p_object.id %}"><i class="fa fa-heart search_icon_like" aria-hidden="true"></i></a>
                                                         </span>
-{#                                                        <span class="search_prod_btn">#}
-{#                                                            <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>#}
-{#                                                        </span>#}
                                                     </div>
                                                     <a class="product-box-img" href="{% url 'p_objects:detail' p_object.pk %}">
                                                         <img src="{{ p_object.product.image.url }}" alt="">
@@ -426,26 +249,6 @@
                                             {% endfor %}
                                         </div>
                                 </div>
-
-{#                                <div class="tab-pane" id="most-visited" role="tabpanel" aria-expanded="false">#}
-{#                                    <div class="row listing-items">#}
-{##}
-{##}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            #}
-{#                            #}
-{#                                <div class="tab-pane" id="most-seller" role="tabpanel" aria-expanded="false" url="">#}
-{#                                    <div class="row listing-items">#}
-{#                                        #}
-{#                                    </div>#}
-{#                                </div>#}
-                            
-                            
-                            
-                            
-                            
-                            
                                 <div class="tab-pane" id="price" role="tabpanel" aria-expanded="false">
                                     <div class="row listing-items">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">

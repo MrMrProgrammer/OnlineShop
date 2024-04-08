@@ -1132,106 +1132,28 @@
                         </header>
                         <div class="row">
                             <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_blank">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-1.png' %}" alt="" />
-                                            <b class="title-3 light-black">کالای دیجیتال</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-2.png' %}" alt="" />
-                                            <b class="title-3 light-black">مودم</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_blank">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-3.png' %}" alt="" />
-                                            <b class="title-3 light-black">تبلت</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-4.png' %}" alt="" />
-                                            <b class="title-3 light-black">ماوس</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-5.png' %}" alt="" />
-                                            <b class="title-3 light-black">هندزفری</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-6.png' %}" alt="" />
-                                            <b class="title-3 light-black">ساعت هوشمند</b>
-                                        </a>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_blank">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-7.png' %}" alt="" />
-                                            <b class="title-3 light-black">کنسول خانگی</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-8.png' %}" alt="" />
-                                            <b class="title-3 light-black">کیبورد (صفحه کلید)</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_blank">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-9.png' %}" alt="" />
-                                            <b class="title-3 light-black">اسپیکر (بلندگو)</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-10.png' %}" alt="" />
-                                            <b class="title-3 light-black">لپ تاپ و الترابوک</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-11.png' %}" alt="" />
-                                            <b class="title-3 light-black">موبایل</b>
-                                        </a>
-
-                                    </div>
-                                    <div class="col-6 col-md-2 contact-bigicon">
-
-                                        <a href="#" target="_top">
-                                            <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-12.png' %}" alt="" />
-                                            <b class="title-3 light-black">هدفون، هدست </b>
-                                        </a>
-
+                                <style>
+                                    .category-title {
+                                        display: block;
+                                        text-align: center; 
+                                    }
+                                </style>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        {% for category, sub_category in all_categories.items %}
+                                            <!-- هر دسته‌بندی را در یک ستون قرار دهید که 2 از 12 ستون را اشغال کند -->
+                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4">
+                                                <a href="#" target="_blank">
+                                                    <img class="img-responsive imgpad" src="{{category.image.url}}" alt="{{ category.title }}" />
+                                                    <!-- اضافه کردن کلاس جدید برای عنوان -->
+                                                    <b class="title-3 light-black category-title">{{ category.title }}</b>
+                                                </a>
+                                            </div>
+                                            {% if forloop.counter|divisibleby:6 and not forloop.last %}
+                                                <!-- پایان یک ردیف و شروع یک ردیف جدید پس از هر 6 دسته‌بندی -->
+                                                </div><div class="row">
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -1247,36 +1169,12 @@
                             <h3 class="card-title"><span>محبوب‌ترین برندها</span></h3>
                         </header>
                         <div class="owl-carousel">
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-1.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-2.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-3.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-4.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-5.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-6.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-7.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-8.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-9.jpg' %}" alt=""> </a>
-                            </div>
-                            <div class="item borderitem">
-                                <a href="#"> <img src="{% static 'img/brands/brand-10.jpg' %}" alt=""> </a>
-                            </div>
+                            {% for brand in brands %}
+                                <div class="item borderitem">
+                                    <a href="{% url 'category:brand_detail' slug=brand.slug %}"> <img src="{{ brand.image.url }}" alt="{{ brand.name }}"> </a>
+                                </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
