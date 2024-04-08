@@ -29,7 +29,7 @@ class Brand(Base):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("", args=[self.slug])
+        return reverse('brand_detail', kwargs={'slug': self.slug})
 
 #  _______      _____________
 
@@ -50,4 +50,5 @@ class Category(Base):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("", args=[self.slug])
+        return reverse('category',
+                       kwargs={'slug': self.slug})
