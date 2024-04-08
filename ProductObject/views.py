@@ -33,17 +33,16 @@ class ProductCategoryView(ListView):
 
         # check if user choose a category
         if self.slug != 'search-result':
-            self.filter_result = ProductObject.objects.filter(
-                available=True,
-                product__category__slug=self.slug)
+            self.filter_result = ProductObject.objects.filter(available=True,
+                                                              product__category__slug=self.slug)
         else:
             self.filter_result = ProductObject.objects.filter(available=True)
 
+        # filtered_by it is a dictionary contains key and value as a list : {'a': []}
         for key, value in self.filtered_by.items():
             if key == 'keyword' and value[0]:
-                self.filter_result = self.filter_result.filter(Q(
-                    product__title__icontains=value[0]) |
-                    Q(description__icontains=value[0]))
+                self.filter_result = self.filter_result.filter(Q(product__title__icontains=value[0]) |
+                                                               Q(description__icontains=value[0]))
 
             if key == 'brand' and value[0]:
                 self.filter_result = self.filter_result.filter(
@@ -109,8 +108,7 @@ class ProductDetailView(DetailView, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(
-            product__id=self.get_object().id).filter(status=2).order_by(
-                '-created_date')
+            product__id=self.get_object().id).filter(status=2).order_by('-created_date')
 
         context['product_features'] = self.all_product_features
         return context
