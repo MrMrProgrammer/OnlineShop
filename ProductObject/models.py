@@ -50,6 +50,10 @@ class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.PROTECT)
     product = models.ForeignKey(ProductObject, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = _("علاقه مندی ها")
+        verbose_name_plural = _("علاقه مندی ها")
+
     # def get_absolute_url(self):
     #     return reverse('p_objects:detail', args=[self.product.id, ])
 

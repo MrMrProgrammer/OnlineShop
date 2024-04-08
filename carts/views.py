@@ -12,6 +12,13 @@ from .models import Cart, CartItem
 # Create your views here.
 
 
+def _cart_id(request):
+    cart = request.session.session_key
+    if not cart:
+        cart = request.session.create()
+    return cart
+
+
 # private function
 class AddToCartView(LoginRequiredMixin, View):
     def get_cart(self, request):
@@ -43,7 +50,6 @@ class AddToCartView(LoginRequiredMixin, View):
         # Add the ProductObject to the CartItem
         cart_item.product_object.add(product_object)
 
-        # If 'product_feature' is in the request, add the corresponding features
         if 'product_feature' in request.POST:
             product_feature = ProductFeature.objects.filter(
                 id__in=request.POST.getlist('product_feature'))

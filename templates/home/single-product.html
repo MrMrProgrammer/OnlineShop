@@ -4,7 +4,15 @@
     {% block page-title %}مَسای شاپ{% endblock %}
 
 {% block main %}
-
+<style>
+    @media (min-width: 992px) {
+        .col-lg-7 {
+            -ms-flex: 0 0 58.333333%;
+            flex: 0 0 58.333333%;
+            max-width: 100% !important;
+        }
+    }
+</style>
     <main class="single-product default">
         <div class="container">
             <div class="row">
@@ -87,7 +95,7 @@
                                 </div>
                                 <!-- Modal Core -->
                             </div>
-                            <form action="{% url 'cart:add_to_cart_page' product_object.id %}" method='POST' class="col-lg-7 h-auto mb-30">auto mb-30">
+                            <form action="{% url 'cart:add_to_cart_page' product_object.id %}" method='POST' class="col-lg-7 h-auto mb-30">
                                 {% csrf_token %}
                                 <div class="col-lg-7 col-md-6 col-sm-12 " >
                                     <h2 class="product-title ">
