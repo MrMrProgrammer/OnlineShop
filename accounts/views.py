@@ -180,3 +180,47 @@ def reset_password(request):
             return redirect('account:reset_password_page')
     else:
         return render(request, 'accounts/password-update.html')
+#-------------
+# from django.shortcuts import render, HttpResponse, redirect
+# from .forms import ShopUserCreationForm, LoginForm
+# from django.contrib.auth import authenticate, login, logout
+
+
+# # Create your views here.
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = ShopUserCreationForm(request.POST)
+#         # user valid
+#         if form.is_valid():
+#             user = form.save()
+#             return HttpResponse('user created')
+#     else:
+#         form = ShopUserCreationForm()
+#     return render(request, 'shop/register.html', {'form': form})
+
+
+# def user_login(request):
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             form = form.cleaned_data
+#             phone = form['phone']
+#             password = form['password']
+#             user = authenticate(phone=phone, password=password)
+#             if user is not None:
+#                 if user.is_active:
+#                     login(request, user)
+#                     return HttpResponse('you entered')
+#                 else:
+#                     return HttpResponse('you are not active!')
+#             else:
+#                 return HttpResponse('you are not registered!')
+#     else:
+#         form = LoginForm()
+#     return render(request, 'shop/login.html', {'form': form})
+
+
+# def user_logout(request):
+#     logout(request)
+#     return redirect(request.META.get('HTTP_REFERER'))
