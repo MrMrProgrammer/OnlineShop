@@ -16,15 +16,15 @@ class ProductObjectAdmin(admin.ModelAdmin):
     search_fields = ('product__title', )
 
     ordering = ('-created',)
+    readonly_fields = ('avg_rate', 'sold', )
 
-    # actions = (add_to_other_categories, )
 
     fieldsets = (
         (None, {
             'fields': ('product', 'features', 'description')
         }),
         (_('Inventory'), {
-            'fields': ('stock', 'available'),
+            'fields': ('avg_rate', 'sold', 'stock', 'available'),
         }),
         (_('Pricing'), {
             'fields': ('price',),

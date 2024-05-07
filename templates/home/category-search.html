@@ -15,133 +15,158 @@
                             </header>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_blank">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-1.png' %}" alt="" />
-                                                <b class="title-3 light-black">کالای دیجیتال</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-2.png' %}" alt="" />
-                                                <b class="title-3 light-black">مودم</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_blank">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-3.png' %}" alt="" />
-                                                <b class="title-3 light-black">تبلت</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-4.png' %}" alt="" />
-                                                <b class="title-3 light-black">ماوس</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-5.png' %}" alt="" />
-                                                <b class="title-3 light-black">هندزفری</b>
-                                            </a>
-
-                                        </div>
-                                        <div class="col-6 col-md-2 contact-bigicon">
-
-                                            <a href="#" target="_top">
-                                                <img class="img-responsive imgpad" src="{% static 'img/Masai/bigicon/img-6.png' %}" alt="" />
-                                                <b class="title-3 light-black">ساعت هوشمند</b>
-                                            </a>
-
+                                    <style>
+                                        .category-title {
+                                            display: block;
+                                            text-align: center; 
+                                        }
+                                    </style>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            {% for category, sub_category in all_categories.items %}
+                                                <!-- هر دسته‌بندی را در یک ستون قرار دهید که 2 از 12 ستون را اشغال کند -->
+                                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4">
+                                                    <a href="#" target="_blank">
+                                                        <img class="img-responsive imgpad" src="{{category.image.url}}" alt="{{ category.title }}" />
+                                                        <!-- اضافه کردن کلاس جدید برای عنوان -->
+                                                        <b class="title-3 light-black category-title">{{ category.title }}</b>
+                                                    </a>
+                                                </div>
+                                                {% if forloop.counter|divisibleby:6 and not forloop.last %}
+                                                    <!-- پایان یک ردیف و شروع یک ردیف جدید پس از هر 6 دسته‌بندی -->
+                                                    </div><div class="row">
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                                 
                             </div>
                         </div>
                     </div>
                     <aside class="sidebar-page col-12 col-sm-12 col-md-4 col-lg-3 ">
                         
                         
+                    
+                    
+                    
+                    
                         
                     <form action="" >
                         
                             
+                    
+                        <div class="box">
+                            <header class="card-header">
+                                <h3 class="card-title"><span class="space-right-10">ترتیب </span></h3>
+                            </header>
+                            <div class="box-content">
+                                <div class="collapse show">
+                                    
+                                    <div class="form-account-agree">
+                                        <label for="options">مرتب کردن بر اساس :</label>
+                                        <select id="options" name="order-by">
+                                            <option value="">-----</option>
+                                            <option value="most-rate">بیشترین امتیاز</option>
+                                            <option value="most-sold">بیشترین فروش</option>
+                                        </select>
+                                    </div>
+
+                                    </div>
+                                </div>
+                        </div>
+
+                    
+                    
                             
                         <div class="box">
-                            
                             <header class="card-header">
                                 <h3 class="card-title"><span class="space-right-10">رنگ</span></h3>
                             </header>
                             <div class="box-content">
                                 <div class="collapse show">
-
-
-
-
+                                    
                                     <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
                                             <input type="checkbox" id="agree" name="color" value="مشکی">
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> مشکی</label>
-                                        <span class="color_pro_sel" style=" background-color: #000;"></span>
+                                        <span class="color_pro_sel" style=" background-color: black;"></span>
                                     </div>
 
-
-
-                                    {% comment %} <div class="form-account-agree">
+                                    <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
+                                            <input type="checkbox" id="agree" name="color" value="طلایی">
+                                            <span class="checkbox-check"></span>
+                                        </label>
+                                        <label for="agree"> طلایی</label>
+                                        <span class="color_pro_sel" style=" background-color: gold;"></span>
+                                    </div>
+
+                                    <div class="form-account-agree">
+                                        <label class="checkbox-form checkbox-primary">
+                                            <input type="checkbox" id="agree" name="color" value="خاکستری">
+                                            <span class="checkbox-check"></span>
+                                        </label>
+                                        <label for="agree"> خاکستری</label>
+                                        <span class="color_pro_sel" style=" background-color: gray;"></span>
+                                    </div>
+
+                                    <div class="form-account-agree">
+                                        <label class="checkbox-form checkbox-primary">
+                                            <input type="checkbox" id="agree" name="color" value="قرمز">
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> قرمز</label>
-                                        <span class="color_pro_sel" style=" background-color: #ff0000;"></span>
+                                        <span class="color_pro_sel" style=" background-color: red;"></span>
 
                                     </div>
                                     <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
+                                            <input type="checkbox" id="agree" name="color" value="زرد">
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> زرد</label>
-                                        <span class="color_pro_sel" style=" background-color: #ffd800;"></span>
+                                        <span class="color_pro_sel" style=" background-color: yellow;"></span>
 
                                     </div>
                                     <div class="form-account-agree">
                                         <label class="checkbox-form checkbox-primary">
-                                            <input type="checkbox" id="agree">
+                                            <input type="checkbox" id="agree" name="color" value="آبی">
                                             <span class="checkbox-check"></span>
                                         </label>
                                         <label for="agree"> آبی</label>
-                                        <span class="color_pro_sel" style=" background-color: #0000ff;"></span> 
+                                        <span class="color_pro_sel" style=" background-color: blue;"></span> 
 
-                                    </div>{% endcomment %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                    
+                    
+                    
                         <div class="box ">
 
                             <header class="card-header">
                                 <h3 class="card-title"><span class="space-right-10">قیمت</span></h3>
                             </header>
-                            <div class="box-content space-40 space-right-25 space-left-25">
-                                <div id="slider">
+                             <div class="box-content space-40 space-right-25 space-left-25">
+                                 
+                                 <div class="form-account-agree">
+                                     <label for="gte"> از</label>
+                                        <input type="number" name="price-gte" id="gte" placeholder="100">
+                                     تومان
+                                    </div>
+                                 
+                                 <div class="form-account-agree">
+                                        <label for="lte"> تا</label>
+                                    <input type="number" name="price-lte" id="lte" placeholder="200">
+                                     تومان
+                                    </div>
+                                 
                                 </div>
                             </div>
-
-
-                        </div>
                         <div class="box">
                             <header class="card-header">
                                 <h3 class="card-title"><span class="space-right-10">لیست برند ها</span></h3>
@@ -157,111 +182,14 @@
                                             <label for="agree">{{ brand }}</label>
                                         </div>
                                     {% endfor %}
-{#                                    #}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> اپل</label>#}
-{#                                        </div>#}
-{#                                    #}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> هواوی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> شیائومی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> سونی</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> ایسوس</label>#}
-{#                                        </div>#}
-{#                                        <div class="form-account-agree">#}
-{#                                            <label class="checkbox-form checkbox-primary">#}
-{#                                                <input type="checkbox" id="agree">#}
-{#                                                <span class="checkbox-check"></span>#}
-{#                                            </label>#}
-{#                                            <label for="agree"> نوکیا</label>#}
-{#                                        </div>#}
                                 </div>
                             </div>
                         </div>
-                       
-{#                        <div class="box">#}
-{#                            <header class="card-header">#}
-{#                                <h3 class="card-title"><span class="space-right-10">سیستم عامل</span></h3>#}
-{#                            </header>#}
-{#                            <div class="box-content">#}
-{#                                <div class="collapse show">#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> اندروید</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> iOS</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> ویندوز فون</label>#}
-{#                                    </div>#}
-{#                                    <div class="form-account-agree">#}
-{#                                        <label class="checkbox-form checkbox-primary">#}
-{#                                            <input type="checkbox" id="agree">#}
-{#                                            <span class="checkbox-check"></span>#}
-{#                                        </label>#}
-{#                                        <label for="agree"> سایر</label>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-                      
-                        {% comment %} <div class="box">
-                            <div class="box-content">
-                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                                <label for="">موجود در انبار مسای</label>
-                            </div>
-                        </div>
-                        <div class="box">
-                            <div class="box-content">
-                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked />
-                                <label for="">ارسال فوری</label>
-                            </div>
-                        </div> {% endcomment %}
-
-
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال
+                            <button type="submit" class="btn btn-success btn-transition mb-3">اعمال
                                 فیلتر</button>
                             <a href="{% url 'p_objects:search' %}"
-                                class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
+                                class="btn btn-danger btn-transition mb-3">حذف فیلتر ها</a>
                         </div>
 
 
@@ -272,52 +200,11 @@
 
                     </aside>
                     <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-                        <div class="listing default ">
-                            <div class="listing-header default marg_all0">
-                                <ul class="Search_list nav nav-tabs " role="tablist" >
-                                    <li>
-                                        <a class="active" data-toggle="tab" href="#suggestion" role="tab"
-                                           aria-expanded="false">پیشنهاد خریداران</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#most-visited" role="tab" aria-expanded="false">پربازدیدترین</a>
-                                    </li>
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="#delivery" role="tab" aria-expanded="true">سریع‌ترین ارسال</a>#}
-{#                                    </li>#}
-                                    <li>
-                                        <a data-toggle="tab" href="#most-seller" role="tab"
-                                           aria-expanded="false">‌بیشترین فروش‌</a>
-                                    </li>
-{#                                    <li>#}
-{#                                        <a data-toggle="tab" href="#price" role="tab"#}
-{#                                           aria-expanded="false">‌براساس قیمت</a>#}
-{#                                    </li>#}
-                                </ul>
-                                <div class="box_filter_search">
-                                    <ul class="filter_search">
-                                        {% if filtered_by %}
-                                            {% for key, value in filtered_by.items %}
-                                                <li>
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                                    <span>{{ key }} : {{ value }}</span>
-                                                </li>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                            </div>
-
-
-
-                            <!-- -->
                             <div class="tab-content default text-center">
                                 <div class="tab-pane active" id="suggestion" role="tabpanel" aria-expanded="true">
                                         <div class="row listing-items">
-<!--         -->
-<!--         -->
-<!--         -->
-<!--         -->
+
+                                        
 
                                             {% for p_object in product_objects %}
 
@@ -326,10 +213,7 @@
                                                     <div class="product-seller-details product-seller-details-item-grid">
                                                         <span class="search_prod_icon">
                                                             <i class="fa fa-search search_icon_search" aria-hidden="true"></i>
-                                                            <i class="fa fa-heart search_icon_like" aria-hidden="true"></i>
-                                                        </span>
-                                                        <span class="search_prod_btn">
-                                                            <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
+                                                            <a href="{% url 'p_objects:wishlist' p_object.id %}"><i class="fa fa-heart search_icon_like" aria-hidden="true"></i></a>
                                                         </span>
                                                     </div>
                                                     <a class="product-box-img" href="{% url 'p_objects:detail' p_object.pk %}">
@@ -364,162 +248,6 @@
                                             </div>
                                             {% endfor %}
                                         </div>
-                                </div>
-
-                                <div class="tab-pane" id="most-visited" role="tabpanel" aria-expanded="false">
-                                    <div class="row listing-items">
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        {% comment %} <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
-                                            <div class="product-box">
-                                                <div class="product-seller-details product-seller-details-item-grid">
-                                                    <span class="search_prod_icon">
-                                                        <i class="fa fa-search search_icon_search" aria-hidden="true"></i>
-                                                        <i class="fa fa-heart search_icon_like" aria-hidden="true"></i>
-                                                    </span>
-
-
-                                                    <span class="search_prod_btn">
-                                                        <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                <a class="product-box-img" href="single-product.html">
-                                                    <img src="assets/img/product_img/p_21.jpg" alt="">
-                                                    <ul>
-                                                        <li class="color_pro" style="background-color: #ff6a00;top: 7px;"></li>
-                                                        <li class="color_pro" style="background-color: #278e3c;top: 20px;"></li>
-                                                        <li class="color_pro" style="background-color: #d500ff;top: 33px;"></li>
-                                                    </ul>
-                                                </a>
-                                                <div class="product-box-content">
-                                                    <div class="product-box-content-row">
-                                                        <div class="product_title">
-                                                            <a href="#">
-                                                                اپل مدل Iphone 14 Pro Max
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-box-row product_price_search">
-                                                        <div class="price">
-                                                            <del><span>85,156,000<span>تومان</span></span></del>
-                                                            <span class="discount_badge">5%</span>
-                                                            <ins><span>75,255,000<span>تومان</span></span></ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> {% endcomment %}
-
-                                    </div>
-                                </div>
-                                {% comment %} <div class="tab-pane" id="delivery" role="tabpanel" aria-expanded="false">
-                                    <div class="row listing-items">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
-                                            <div class="product-box">
-                                                <div class="product-seller-details product-seller-details-item-grid">
-                                                    <span class="search_prod_icon">
-                                                        <i class="fa fa-search search_icon_search" aria-hidden="true"></i>
-                                                        <i class="fa fa-heart search_icon_like" aria-hidden="true"></i>
-                                                    </span>
-
-
-                                                    <span class="search_prod_btn">
-                                                        <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                <a class="product-box-img" href="single-product.html">
-                                                    <img src="assets/img/product_img/p_19.jpg" alt="">
-                                                    <ul>
-                                                        <li class="color_pro" style="background-color: #000;top: 7px;"></li>
-                                                        <li class="color_pro" style="background-color: #f00;top: 20px;"></li>
-                                                        <li class="color_pro" style="background-color: #0f0;top: 33px;"></li>
-                                                    </ul>
-                                                </a>
-                                                <div class="product-box-content">
-                                                    <div class="product-box-content-row">
-                                                        <div class="product_title">
-                                                            <a href="#">
-                                                                گوشی موبایل ردمی نوت 11SE شیائومی
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-box-row product_price_search">
-                                                        <div class="price">
-                                                            <del><span>72,156,000<span>تومان</span></span></del>
-                                                            <span class="discount_badge">2%</span>
-                                                            <ins><span>69,255,000<span>تومان</span></span></ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> {% endcomment %}
-                                <div class="tab-pane" id="most-seller" role="tabpanel" aria-expanded="false">
-                                    <div class="row listing-items">
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        {% comment %} <div class="col-xl-4 col-lg-4 col-md-6 col-12 list_search_p ">
-                                            <div class="product-box">
-                                                <div class="product-seller-details product-seller-details-item-grid">
-                                                    <span class="search_prod_icon">
-                                                        <i class="fa fa-search search_icon_search" aria-hidden="true"></i>
-                                                        <i class="fa fa-heart search_icon_like" aria-hidden="true"></i>
-                                                    </span>
-
-
-                                                    <span class="search_prod_btn">
-                                                        <i class="fa fa fa-cart-arrow-down search_icon_cart" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                <a class="product-box-img" href="single-product.html">
-                                                    <img src="assets/img/product_img/p_9.jpg" alt="">
-                                                    <ul>
-                                                        <li class="color_pro" style="background-color: #794cc3;top: 7px;"></li>
-                                                        <li class="color_pro" style="background-color: #18bd71;top: 20px;"></li>
-                                                        <li class="color_pro" style="background-color: #d500ff;top: 33px;"></li>
-                                                    </ul>
-                                                </a>
-                                                <div class="product-box-content">
-                                                    <div class="product-box-content-row">
-                                                        <div class="product_title">
-                                                            <a href="#">
-                                                                گوشی موبایل شیائومی مدل Poco X4 Pro 5G
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-box-row product_price_search">
-                                                        <div class="price">
-
-                                                            <ins><span>15,255,000<span>تومان</span></span></ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> {% endcomment %}
-                                    </div>
                                 </div>
                                 <div class="tab-pane" id="price" role="tabpanel" aria-expanded="false">
                                     <div class="row listing-items">

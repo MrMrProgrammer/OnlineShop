@@ -9,7 +9,13 @@ from ProductObject.models import ProductObject
 
 from .models import Cart, CartItem
 
+
 # Create your views here.
+def _cart_id(request):
+    cart = request.session.session_key
+    if not cart:
+        cart = request.session.create()
+    return cart
 
 
 # private function
@@ -71,7 +77,7 @@ class RemoveCartView(LoginRequiredMixin, View):
                 cart_item = CartItem.objects.get(
                     product=product, cart=cart, id=cart_item_id)
             else:
-                # cart = Cart.objects.get(cart_id=_cart_id(request))
+                cart = Cart.objects.get(cart_id=_cart_id(request))
                 cart_item = CartItem.objects.get(
                     product=product, cart=cart, id=cart_item_id)
 
