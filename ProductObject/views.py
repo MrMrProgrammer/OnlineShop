@@ -140,3 +140,31 @@ class AddOrRemoveWishlistView(LoginRequiredMixin, View):
                     product_id=product_id, user=request.user)
                 message = "محصول به لیست علایق اضافه شد"
         return JsonResponse({"message": message})
+#-----------------new 5/15
+from django.shortcuts import render
+from .models import Product, Category
+from django.shortcuts import render, get_object_or_404
+
+# Create your views here.
+
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    context = {
+        'category': category,
+        'products': products,
+        'categories': categories
+    }
+    return render(request, 'shop/products_list.html', context)
+
+
+def product_detail(request, pk, slug):
+    product = get_object_or_404(Product, id=pk, slug=slug)
+    return render(request, 'shop/products_detail.html', {'product': product})
+
+
