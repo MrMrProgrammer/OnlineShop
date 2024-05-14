@@ -94,3 +94,21 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProductFeature, )
+#-------------------------new 5/15
+from django.contrib import admin
+from .models import *
+
+
+# Register your models here.
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['product', 'title', 'create']
+    search_fields = ['title', 'description']
+
+
+@admin.register(ProductFeature)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['product', 'feature_key', 'feature_value']
+    search_fields = ['feature_key', 'product']
+
