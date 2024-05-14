@@ -147,3 +147,39 @@ class PromotionAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         return queryset
+#----------------------new 5/15
+from django.contrib import admin
+from .models import *
+from Baseapp.models import Image, ProductFeature
+# Register your models here.
+
+
+class ImageInline(admin.TabularInline):
+    model = Image
+    extra = 0
+
+
+class ProductFeatureInline(admin.TabularInline):
+    model = ProductFeature
+    extra = 0
+
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title']
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title']
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['name', 'brand', 'category', 'inventory', 'price', 'new_price']
+    list_filter = ['category', 'brand']
+    search_fields = ['name', 'brand', 'category', 'description']
+    inlines = [ProductFeatureInline, ImageInline]
+
