@@ -180,3 +180,62 @@ class CheckoutView(LoginRequiredMixin, View):
         }
 
         return render(request, 'carts/checkout.html', context)
+#-------------------------------new 17/5
+from django.shortcuts import render, get_object_or_404
+from .cart import Cart
+from shop.models import Product
+from django.http import JsonResponse
+
+
+# Create your views here.
+
+
+def cart_detail(request):
+    cart = Cart(request)
+    print(cart.cart)
+    return render(request, 'cart/cart_detail.html', {'cart': cart})
+
+
+def add_to_cart(request, product_id):
+    try:
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=product_id)
+        cart.add(product)
+        context = {
+            'item_count': len(cart),
+            'total_price': cart.get_post_price()
+        }
+        return JsonResponse(context)
+    except:
+        return JsonResponse({'error': 'Invalid Request'})
+
+
+def decrease_from_cart(request, product_id):
+    try:
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=product_id)
+        cart.decrease(product)
+        context = {
+            'item_count': len(cart),
+            'total_price': cart.get_post_price()
+        }
+        return JsonResponse(context)
+    except:
+        return JsonResponse({'error': 'Invalid Request'})
+
+
+def remove_item(request, product_id):
+    try:
+        product = get_object_or_404(Product, pk=product_id)
+        cart = Cart(request)
+        cart.remove(product)
+        return JsonResponse({'message': 'item removed'})
+    except:
+        return JsonResponse({'success': False, 'error': 'item not found'})
+
+
+def update_quantity(request):
+    pass
+
+
+
