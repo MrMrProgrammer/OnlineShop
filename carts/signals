@@ -1,0 +1,25 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.sessions.models import Session
+from shop.models import Product
+
+
+@receiver(post_save, sender=Product)
+def update_cart(sender, instance, **kwargs):
+    all_sessions = Session.objects.all()
+    for session in all_sessions:
+        data = session.get_decoded()
+        pk = str(instance.pk)
+        if 'cart' in data:
+            cart = data['cart']
+            updated = False
+            if cart.values():
+                if cart[pk]:
+                    cart[pk]['new_price'] = instance.new_price
+                    updated = True
+            if updated:
+                session_data = session.get_decoded()
+                session_data['cart'] = cart
+                session.session_data = Session.objects.encode(session_data)
+                session.save()
+
