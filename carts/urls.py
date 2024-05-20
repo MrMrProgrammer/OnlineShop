@@ -16,3 +16,16 @@ urlpatterns = [
 
     path('checkout/', CheckoutView.as_view(), name='checkout_page')
 ]
+#----------------------new 17/5
+from django.urls import path
+from .views import *
+
+app_name = 'cart'
+
+urlpatterns = [
+    path('cart-detail', cart_detail, name='cart-detail'),
+    path('add/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('decrease/<int:product_id>/', decrease_from_cart, name='decrease_from_cart'),
+    path('item_remove/<int:product_id>/', remove_item, name='item_remove'),
+    path('cart-detail', cart_detail, name='update_quantity'),
+]
