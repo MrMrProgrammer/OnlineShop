@@ -1,4 +1,4 @@
-from ProductObject.models import ProductObject
+from shop.models import Product
 
 
 class Cart:
@@ -12,42 +12,61 @@ class Cart:
 
     def add(self, product):
         product_id = str(product.id)
-        inventory = product.sale_ratio
         if product_id not in self.cart:
-            new_price = product.sale_ratio()
-            self.cart[product_id] = {'quantity': 1, 'new_price': new_price, 'weight': product.pk}
+            self.cart[product_id] = {"quantity": 1, 'new_price': product.new_price, 'weight': product.weight}
         else:
-            if inventory >= 0:
+            if self.cart[product_id]['quantity'] < product.inventory:
                 self.cart[product_id]['quantity'] += 1
         self.save()
 
     def decrease(self, product):
         product_id = str(product.id)
-        if self.cart[product_id]['quantity'] > 0:
+        if self.cart[product_id]['quantity'] > 1:
             self.cart[product_id]['quantity'] -= 1
-            self.save()
+        self.save()
 
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
-
-    def clear(self, product):
-        if self.cart:
-            del self.cart
         self.save()
 
-    def get_total_price(self):
-        pass
+    def clear(self):
+        if self.cart:
+            del self.session['cart']
+            self.save()
 
-    def price(self):
+    def get_post_price(self):
+        if self.cart.values():
+            weight = sum(item['quantity'] * item['weight'] for item in self.cart.values())
+            if weight < 1000:
+                return 2000
+            elif 1000 < weight < 2000:
+                return 2000
+            else:
+                return 3000
+        else:
+            return 0
+
+    def get_products_price(self):
         price = sum(item['new_price'] * item['quantity'] for item in self.cart.values())
         return price
 
-    def final_price(self):
-        pass
+    def get_final_price(self):
+        return self.get_post_price() + self.get_products_price()
+
+    def __len__(self):
+        return sum(item['quantity'] for item in self.cart.values())
+
+    def __iter__(self):
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+        cart_dict = self.cart.copy()
+        for product in products:
+            cart_dict[str(product.pk)]['product'] = product
+        for item in cart_dict.values():
+            item['total'] = item['new_price'] * item['quantity']
+            yield item
 
     def save(self):
         self.session.modified = True
-
-
