@@ -68,3 +68,41 @@ class Product(Base):
         if self.category.exists():
             return reverse('home-page', args=[self.category.first().slug, self.slug])
         return reverse('home-page', args=[self.slug])
+#--------------------------------------------------new 5/15
+from django.db import models
+from shop.models import Product
+
+
+# Create your models here.
+
+
+class ProductFeature(models.Model):
+    feature_key = models.CharField(max_length=80)
+    feature_value = models.CharField(max_length=50)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_features')
+
+    class Meta:
+        unique_together = ('feature_key', 'feature_value')
+        verbose_name = 'ویژگی'
+        verbose_name_plural = 'ویژگی'
+
+    def __str__(self):
+        return f'{self.feature_key} : {self.feature_value}'
+
+
+class Image(models.Model):
+    title = models.CharField(max_length=50, null=True, blank=True),
+    file = models.ImageField(upload_to='product_image/%Y/%m/%d'),
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images', verbose_name='تصویرها'),
+    description = models.TextField(max_length=2000, null=True, blank=True),
+    create = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-create']
+        indexes = [
+            models.Index(fields=['-create'])
+        ]
+
+    def __str__(self):
+        return self.title if self.title else 'None'
+
